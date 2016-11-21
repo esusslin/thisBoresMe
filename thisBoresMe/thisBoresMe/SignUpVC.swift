@@ -177,6 +177,9 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
 
     @IBAction func cancelButtonPressed(sender: AnyObject) {
+        
+        self.view.endEditing(true)
+        
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

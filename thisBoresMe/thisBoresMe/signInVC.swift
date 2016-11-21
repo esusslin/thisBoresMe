@@ -32,9 +32,20 @@ class signInVC: UIViewController {
         usernameTxt.frame = CGRectMake(10, boringLabel.frame.origin.y + 70, self.view.frame.size.width - 20, 30)
         passwordTxt.frame = CGRectMake(10, usernameTxt.frame.origin.y + 40, self.view.frame.size.width - 20, 30)
         forgotpassBtn.frame = CGRectMake(10, passwordTxt.frame.origin.y + 30, self.view.frame.size.width - 20, 30)
-        singInBtn.frame = CGRectMake(20, passwordTxt.frame.origin.y + 40, self.view.frame.size.width / 4, 30)
+        singInBtn.frame = CGRectMake(20, forgotpassBtn.frame.origin.y + 40, self.view.frame.size.width / 4, 30)
         signUpBtn.frame = CGRectMake(self.view.frame.size.width - self.view.frame.size.width / 4 - 20, singInBtn.frame.origin.y, self.view.frame.size.width / 4, 30)
+        
+        //tape to hide keyboard
+        let hideTap = UITapGestureRecognizer(target: self, action: "hideKeyboard:")
+        hideTap.numberOfTapsRequired = 1
+        self.view.userInteractionEnabled = true
+        self.view.addGestureRecognizer(hideTap)
     }
+    
+    func hideKeyboard(recognizer : UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+    
 
     @IBAction func signInBtn_click(sender: AnyObject) {
         print("sign in pressed")

@@ -19,7 +19,9 @@ class resetPasswordVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        emailTxt.frame = CGRectMake(10, 120, self.view.frame.size.width - 20, 30)
+        resetBtn.frame = CGRectMake(20, emailTxt.frame.origin.y + 50, self.view.frame.size.width / 4, 30)
+        cancelBtn.frame = CGRectMake(self.view.frame.size.width - self.view.frame.size.width / 4 - 20, resetBtn.frame.origin.y, self.view.frame.size.width / 4, 30)
     }
 
 
@@ -53,6 +55,8 @@ class resetPasswordVC: UIViewController {
     }
 
     @IBAction func cancelBtnPressed(sender: AnyObject) {
+        
+        self.view.endEditing(true)
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }
