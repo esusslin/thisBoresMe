@@ -77,6 +77,14 @@
                                     <segue destination="0OZ-DQ-5oc" kind="modal" id="hea-3w-gUM"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="this Bores Me" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PJs-Sc-qmc">
+                                <rect key="frame" x="20" y="60" width="280" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <color key="textColor" red="0.73197720239999997" green="0.77920674769999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fMs-cC-GM3">
                                 <rect key="frame" x="242" y="283" width="58" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -89,9 +97,10 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="boringLabel" destination="PJs-Sc-qmc" id="cbS-uc-Nlf"/>
                         <outlet property="forgotpassBtn" destination="tJG-PM-P76" id="adi-0Y-aYs"/>
                         <outlet property="passwordTxt" destination="yG7-Io-ogC" id="A96-aQ-3xO"/>
                         <outlet property="signUpBtn" destination="fMs-cC-GM3" id="FzC-ne-MKK"/>
@@ -184,18 +193,21 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="avatarImage" destination="t0S-29-ZAh" id="wnx-Ro-6NF"/>
                         <outlet property="bioTxt" destination="Jc5-OP-wUg" id="T5H-cb-A0U"/>
+                        <outlet property="cancelBtn" destination="UUn-Pl-ITx" id="aLB-OO-B6L"/>
                         <outlet property="emailTxt" destination="9Cs-hw-wDd" id="kcy-3g-YaJ"/>
                         <outlet property="fullnameTxt" destination="h9Q-r7-fhq" id="uTb-OU-O2n"/>
                         <outlet property="passwordTxt" destination="qZY-I1-upw" id="ZaJ-aW-iVO"/>
                         <outlet property="retypePasswordTxt" destination="MoH-ZA-crG" id="Tdg-3p-4FB"/>
                         <outlet property="scrollView" destination="JVr-Ou-A6O" id="DoG-i2-7r2"/>
+                        <outlet property="signUpBtn" destination="n2b-lb-sso" id="gBb-EG-K70"/>
                         <outlet property="usernameTxt" destination="AAs-xs-VCu" id="0xG-Lc-fLH"/>
                         <outlet property="webTxt" destination="UIu-Wd-eyD" id="VvL-1q-LVb"/>
                     </connections>

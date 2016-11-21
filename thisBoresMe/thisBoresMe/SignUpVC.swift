@@ -23,6 +23,8 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     @IBOutlet weak var bioTxt: UITextField!
     @IBOutlet weak var webTxt: UITextField!
 
+    @IBOutlet weak var signUpBtn: UIButton!
+    @IBOutlet weak var cancelBtn: UIButton!
     
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -53,10 +55,28 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         self.view.userInteractionEnabled = true
         self.view.addGestureRecognizer(hideTap)
         
+        // delcare select image tap capacity
         let avaTap = UITapGestureRecognizer(target: self, action: "loadImg:")
         avaTap.numberOfTapsRequired = 1
         avatarImage.userInteractionEnabled = true
         avatarImage.addGestureRecognizer(avaTap)
+        
+        // incredibly boring alignment code
+        avatarImage.frame = CGRectMake(self.view.frame.size.width / 2 - 40, 40, 80, 80)
+        usernameTxt.frame = CGRectMake(10, avatarImage.frame.origin.y + 90, self.view.frame.size.width - 20, 30)
+        passwordTxt.frame = CGRectMake(10, usernameTxt.frame.origin.y + 40, self.view.frame.size.width - 20, 30)
+        
+        retypePasswordTxt.frame = CGRectMake(10, passwordTxt.frame.origin.y + 40, self.view.frame.size.width - 20, 30)
+        emailTxt.frame = CGRectMake(10, retypePasswordTxt.frame.origin.y + 60, self.view.frame.size.width - 20, 30)
+        fullnameTxt.frame = CGRectMake(10, emailTxt.frame.origin.y + 40, self.view.frame.size.width - 20, 30)
+        
+        bioTxt.frame = CGRectMake(10, fullnameTxt.frame.origin.y + 40, self.view.frame.size.width - 20, 30)
+        webTxt.frame = CGRectMake(10, bioTxt.frame.origin.y + 40, self.view.frame.size.width - 20, 30)
+        
+        signUpBtn.frame = CGRectMake(20, webTxt.frame.origin.y + 50, self.view.frame.size.width / 4, 30)
+        
+        cancelBtn.frame = CGRectMake(self.view.frame.size.width - self.view.frame.size.width / 4 - 20, signUpBtn.frame.origin.y, self.view.frame.size.width / 4, 30)
+    
         
     }
     

@@ -11,6 +11,7 @@ import Parse
 
 class signInVC: UIViewController {
     
+    @IBOutlet weak var boringLabel: UILabel!
     
     @IBOutlet weak var usernameTxt: UITextField!
     @IBOutlet weak var passwordTxt: UITextField!
@@ -26,7 +27,13 @@ class signInVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // boring alignment code
+        boringLabel.frame = CGRectMake(10, 80, self.view.frame.size.width - 20, 50)
+        usernameTxt.frame = CGRectMake(10, boringLabel.frame.origin.y + 70, self.view.frame.size.width - 20, 30)
+        passwordTxt.frame = CGRectMake(10, usernameTxt.frame.origin.y + 40, self.view.frame.size.width - 20, 30)
+        forgotpassBtn.frame = CGRectMake(10, passwordTxt.frame.origin.y + 30, self.view.frame.size.width - 20, 30)
+        singInBtn.frame = CGRectMake(20, passwordTxt.frame.origin.y + 40, self.view.frame.size.width / 4, 30)
+        signUpBtn.frame = CGRectMake(self.view.frame.size.width - self.view.frame.size.width / 4 - 20, singInBtn.frame.origin.y, self.view.frame.size.width / 4, 30)
     }
 
     @IBAction func signInBtn_click(sender: AnyObject) {
