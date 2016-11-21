@@ -140,6 +140,15 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         user.signUpInBackgroundWithBlock { (success:Bool, error:NSError?) in
             if success {
                 print("registered")
+                
+                // remember logged user
+                NSUserDefaults.standardUserDefaults().setObject(user.username, forKey: "username")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                
+                // call login func from AppDelegate class & open app
+                let appDelegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                appDelegate.login()
+                
             } else {
                 print(error?.localizedDescription)
             }

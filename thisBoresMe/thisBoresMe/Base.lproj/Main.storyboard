@@ -5,6 +5,38 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
+        <!--Item 1-->
+        <scene sceneID="ehG-Xm-UXI">
+            <objects>
+                <viewController id="a5e-SQ-a9V" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eLh-KB-kwM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="oWR-Vm-tvQ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2eY-6T-SKf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2038" y="232"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="OAl-Tn-62Z">
+            <objects>
+                <tabBarController storyboardIdentifier="tabBar" id="pLN-nF-iab" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="aW0-wg-kXV">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="a5e-SQ-a9V" kind="relationship" relationship="viewControllers" id="v7W-97-lfF"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NvC-Gd-RGz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1486" y="231"/>
+        </scene>
         <!--Sign InVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -41,6 +73,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
                                 <state key="normal" title="forgot password?"/>
+                                <connections>
+                                    <segue destination="0OZ-DQ-5oc" kind="modal" id="hea-3w-gUM"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fMs-cC-GM3">
                                 <rect key="frame" x="242" y="283" width="58" height="30"/>
@@ -169,15 +204,50 @@
             </objects>
             <point key="canvasLocation" x="556" y="232"/>
         </scene>
-        <!--View Controller-->
+        <!--Reset PasswordVC-->
         <scene sceneID="VY3-nX-iD8">
             <objects>
-                <viewController id="0OZ-DQ-5oc" sceneMemberID="viewController">
+                <viewController id="0OZ-DQ-5oc" customClass="resetPasswordVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="w3g-TH-XMG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" id="uVz-m7-7Xm">
+                                <rect key="frame" x="20" y="97" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Z3S-ez-nZU">
+                                <rect key="frame" x="20" y="150" width="63" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.30619380270000002" green="0.70607320709999999" blue="0.80428000239999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="resetBtnPressed:" destination="0OZ-DQ-5oc" eventType="touchUpInside" id="1RP-gd-fxC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ymq-KQ-K3U">
+                                <rect key="frame" x="237" y="150" width="63" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelBtnPressed:" destination="0OZ-DQ-5oc" eventType="touchUpInside" id="W8r-sQ-fAA"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="cancelBtn" destination="ymq-KQ-K3U" id="VGb-KT-U1D"/>
+                        <outlet property="emailTxt" destination="uVz-m7-7Xm" id="DCF-jC-tXB"/>
+                        <outlet property="resetBtn" destination="Z3S-ez-nZU" id="Lnk-D7-nkm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fzh-KH-zpx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
