@@ -71,7 +71,7 @@
         <!--Sign UpVC-->
         <scene sceneID="dSi-gD-4ea">
             <objects>
-                <viewController id="64x-to-MTE" customClass="SignUpVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="64x-to-MTE" customClass="signUpVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="j9W-OJ-OZ5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -80,84 +80,89 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_placeholder" id="JAk-Qv-Akc">
-                                        <rect key="frame" x="110" y="50" width="100" height="100"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_placeholder" id="t0S-29-ZAh">
+                                        <rect key="frame" x="120" y="29" width="80" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" textAlignment="natural" minimumFontSize="17" id="fFY-oX-eoq">
-                                        <rect key="frame" x="20" y="166" width="280" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" id="AAs-xs-VCu">
+                                        <rect key="frame" x="8" y="129" width="304" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" id="7zC-mk-LEp">
-                                        <rect key="frame" x="20" y="204" width="280" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" id="qZY-I1-upw">
+                                        <rect key="frame" x="8" y="167" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="retype password" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" id="MoH-ZA-crG">
+                                        <rect key="frame" x="8" y="205" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="fullname" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" id="h9Q-r7-fhq">
+                                        <rect key="frame" x="8" y="317" width="304" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="retype password" textAlignment="natural" minimumFontSize="17" id="vfB-O3-QnP">
-                                        <rect key="frame" x="20" y="242" width="280" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="bio" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" id="Jc5-OP-wUg">
+                                        <rect key="frame" x="8" y="355" width="304" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="fullname" textAlignment="natural" minimumFontSize="17" id="cCu-rm-Vwq">
-                                        <rect key="frame" x="20" y="311" width="280" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="web" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" id="UIu-Wd-eyD">
+                                        <rect key="frame" x="8" y="393" width="304" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="bio" textAlignment="natural" minimumFontSize="17" id="dMs-gO-BbH">
-                                        <rect key="frame" x="20" y="349" width="280" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="web" textAlignment="natural" minimumFontSize="17" id="y6D-kZ-zvV">
-                                        <rect key="frame" x="20" y="387" width="280" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ojB-Tz-e0J">
-                                        <rect key="frame" x="20" y="433" width="70" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="n2b-lb-sso">
+                                        <rect key="frame" x="8" y="431" width="57" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.30619380270000002" green="0.70607320709999999" blue="0.80428000239999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Sign Up">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="signUpBtn_click:" destination="64x-to-MTE" eventType="touchUpInside" id="gNu-qW-7gn"/>
+                                            <action selector="signUpButtonPressed:" destination="64x-to-MTE" eventType="touchUpInside" id="awg-me-O73"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hQg-8R-00J">
-                                        <rect key="frame" x="230" y="433" width="70" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="UUn-Pl-ITx">
+                                        <rect key="frame" x="256" y="431" width="56" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="Cancel">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="cancelBtn_click:" destination="64x-to-MTE" eventType="touchUpInside" id="wXm-uA-cgu"/>
+                                            <action selector="cancelButtonPressed:" destination="64x-to-MTE" eventType="touchUpInside" id="f1W-yI-QCl"/>
                                         </connections>
                                     </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" id="9Cs-hw-wDd">
+                                        <rect key="frame" x="8" y="274" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                 </subviews>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
                     <connections>
-                        <outlet property="avaImg" destination="JAk-Qv-Akc" id="IJd-iC-jwp"/>
-                        <outlet property="bioTxt" destination="dMs-gO-BbH" id="jo1-Zb-P8C"/>
-                        <outlet property="cancelBtn" destination="hQg-8R-00J" id="tqz-fy-dnS"/>
-                        <outlet property="fullnameTxt" destination="cCu-rm-Vwq" id="l1t-9n-g1e"/>
-                        <outlet property="passwordTxt" destination="7zC-mk-LEp" id="QAA-2b-TCV"/>
-                        <outlet property="retypePassword" destination="vfB-O3-QnP" id="8Q3-bP-hEO"/>
-                        <outlet property="scrollView" destination="JVr-Ou-A6O" id="CXK-ha-18g"/>
-                        <outlet property="signUpBtn" destination="ojB-Tz-e0J" id="V96-El-FC4"/>
-                        <outlet property="usernameTxt" destination="fFY-oX-eoq" id="fqW-Gk-kyf"/>
-                        <outlet property="webTxt" destination="y6D-kZ-zvV" id="iEo-dG-wNc"/>
+                        <outlet property="avatarImage" destination="t0S-29-ZAh" id="wnx-Ro-6NF"/>
+                        <outlet property="bioTxt" destination="Jc5-OP-wUg" id="T5H-cb-A0U"/>
+                        <outlet property="emailTxt" destination="9Cs-hw-wDd" id="kcy-3g-YaJ"/>
+                        <outlet property="fullnameTxt" destination="h9Q-r7-fhq" id="uTb-OU-O2n"/>
+                        <outlet property="passwordTxt" destination="qZY-I1-upw" id="ZaJ-aW-iVO"/>
+                        <outlet property="retypePasswordTxt" destination="MoH-ZA-crG" id="Tdg-3p-4FB"/>
+                        <outlet property="scrollView" destination="JVr-Ou-A6O" id="DoG-i2-7r2"/>
+                        <outlet property="usernameTxt" destination="AAs-xs-VCu" id="0xG-Lc-fLH"/>
+                        <outlet property="webTxt" destination="UIu-Wd-eyD" id="VvL-1q-LVb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dS2-WW-Kfv" userLabel="First Responder" sceneMemberID="firstResponder"/>
