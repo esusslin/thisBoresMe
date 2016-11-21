@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import Bolts
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -30,6 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         Parse.initializeWithConfiguration(parseConfig)
+        
+        // call login function
+        login()
         
         return true
     }
@@ -54,6 +58,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func login() {
+        let username : String? = NSUserDefaults.standardUserDefaults().stringForKey("username")
+        
+        // if logged in
+        if username != nil {
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let myTabBar = storyboard.instantiateViewControllerWithIdentifier("tabBar") as! UITabBarController
+            
+            window?.rootViewController = myTabBar
+        }
     }
 
 
