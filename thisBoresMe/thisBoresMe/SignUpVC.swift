@@ -65,18 +65,20 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         avatarImage.frame = CGRectMake(self.view.frame.size.width / 2 - 40, 40, 80, 80)
         usernameTxt.frame = CGRectMake(10, avatarImage.frame.origin.y + 90, self.view.frame.size.width - 20, 30)
         passwordTxt.frame = CGRectMake(10, usernameTxt.frame.origin.y + 40, self.view.frame.size.width - 20, 30)
-        
         retypePasswordTxt.frame = CGRectMake(10, passwordTxt.frame.origin.y + 40, self.view.frame.size.width - 20, 30)
         emailTxt.frame = CGRectMake(10, retypePasswordTxt.frame.origin.y + 60, self.view.frame.size.width - 20, 30)
         fullnameTxt.frame = CGRectMake(10, emailTxt.frame.origin.y + 40, self.view.frame.size.width - 20, 30)
-        
         bioTxt.frame = CGRectMake(10, fullnameTxt.frame.origin.y + 40, self.view.frame.size.width - 20, 30)
         webTxt.frame = CGRectMake(10, bioTxt.frame.origin.y + 40, self.view.frame.size.width - 20, 30)
-        
         signUpBtn.frame = CGRectMake(20, webTxt.frame.origin.y + 50, self.view.frame.size.width / 4, 30)
-        
         cancelBtn.frame = CGRectMake(self.view.frame.size.width - self.view.frame.size.width / 4 - 20, signUpBtn.frame.origin.y, self.view.frame.size.width / 4, 30)
     
+        
+        // background
+        let bg = UIImageView(frame: CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height))
+        bg.image = UIImage(named: "boringbackground.jpeg")
+        bg.layer.zPosition = -1
+        self.view.addSubview(bg)
         
     }
     

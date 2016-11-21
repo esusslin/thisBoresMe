@@ -22,6 +22,12 @@ class resetPasswordVC: UIViewController {
         emailTxt.frame = CGRectMake(10, 120, self.view.frame.size.width - 20, 30)
         resetBtn.frame = CGRectMake(20, emailTxt.frame.origin.y + 50, self.view.frame.size.width / 4, 30)
         cancelBtn.frame = CGRectMake(self.view.frame.size.width - self.view.frame.size.width / 4 - 20, resetBtn.frame.origin.y, self.view.frame.size.width / 4, 30)
+        
+        // background
+        let bg = UIImageView(frame: CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height))
+        bg.image = UIImage(named: "boringbackground.jpeg")
+        bg.layer.zPosition = -1
+        self.view.addSubview(bg)
     }
 
 

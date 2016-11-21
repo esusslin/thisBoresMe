@@ -40,6 +40,13 @@ class signInVC: UIViewController {
         hideTap.numberOfTapsRequired = 1
         self.view.userInteractionEnabled = true
         self.view.addGestureRecognizer(hideTap)
+        
+        
+        // background
+        let bg = UIImageView(frame: CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height))
+        bg.image = UIImage(named: "boringbackground.jpeg")
+        bg.layer.zPosition = -1
+        self.view.addSubview(bg)
     }
     
     func hideKeyboard(recognizer : UITapGestureRecognizer) {
