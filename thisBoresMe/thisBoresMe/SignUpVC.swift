@@ -172,7 +172,11 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 appDelegate.login()
                 
             } else {
-                print(error?.localizedDescription)
+                // show alert
+                let alert = UIAlertController(title: "Please", message: "fill in both fields", preferredStyle: UIAlertControllerStyle.Alert)
+                let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
+                alert.addAction(ok)
+                self.presentViewController(alert, animated: true, completion: nil)
             }
         }
     }

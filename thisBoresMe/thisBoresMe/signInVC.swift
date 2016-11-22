@@ -61,7 +61,8 @@ class signInVC: UIViewController {
         self.view.endEditing(true)
         
         if usernameTxt.text!.isEmpty || passwordTxt.text!.isEmpty {
-            
+           
+            // show alert
             let alert = UIAlertController(title: "Please", message: "fill in both fields", preferredStyle: UIAlertControllerStyle.Alert)
             let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
             alert.addAction(ok)
@@ -81,7 +82,16 @@ class signInVC: UIViewController {
                 // call logingfrom AppDelegate.swift
                 let appDelegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 appDelegate.login()
+    
+            } else {
+                
+                // show alert
+                let alert = UIAlertController(title: "Error", message: error!.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+                let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
+                alert.addAction(ok)
+                self.presentViewController(alert, animated: true, completion: nil)
             }
+            
         }
         
     }
