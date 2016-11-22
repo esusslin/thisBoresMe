@@ -8,11 +8,11 @@
         <!--HomeVC-->
         <scene sceneID="fg3-lF-I3a">
             <objects>
-                <collectionViewController id="u2Z-N7-MjW" customClass="homeVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="homeVC" id="u2Z-N7-MjW" customClass="homeVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="z19-iY-480">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fEY-qx-yn6">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="fEY-qx-yn6">
                             <size key="itemSize" width="106" height="106"/>
                             <size key="headerReferenceSize" width="50" height="215"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -20,7 +20,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="0bx-Q4-tdd" customClass="pictureCell" customModule="thisBoresMe" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="215" width="106" height="106"/>
+                                <rect key="frame" x="0.0" y="279" width="106" height="106"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
@@ -38,8 +38,8 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="wB1-pR-68O" customClass="headerView" customModule="thisBoresMe" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="215"/>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Header" id="wB1-pR-68O" customClass="headerView" customModule="thisBoresMe" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="64" width="320" height="215"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_placeholder" id="kQx-os-s7W">
@@ -121,6 +121,7 @@
                             <connections>
                                 <outlet property="avatarImage" destination="kQx-os-s7W" id="3qf-Im-Wlm"/>
                                 <outlet property="bio" destination="r18-Qz-roT" id="4ot-aq-8hW"/>
+                                <outlet property="button" destination="iV2-6P-dWB" id="LoD-is-FcA"/>
                                 <outlet property="followers" destination="OVP-HI-eUg" id="IPK-d2-Kl1"/>
                                 <outlet property="followersTitle" destination="pZG-b4-F1p" id="3SM-52-v5i"/>
                                 <outlet property="following" destination="fZi-8U-XZb" id="Lx7-eR-cCo"/>
@@ -136,20 +137,11 @@
                             <outlet property="delegate" destination="u2Z-N7-MjW" id="Kbe-3B-klG"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" id="4mh-Za-UAR"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GwC-fm-6HX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2491" y="232"/>
-        </scene>
-        <!--Item 1-->
-        <scene sceneID="ehG-Xm-UXI">
-            <objects>
-                <viewController id="a5e-SQ-a9V" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 1" id="oWR-Vm-tvQ"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2eY-6T-SKf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2038" y="232"/>
+            <point key="canvasLocation" x="2280" y="231"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="OAl-Tn-62Z">
@@ -161,7 +153,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="a5e-SQ-a9V" kind="relationship" relationship="viewControllers" id="v7W-97-lfF"/>
+                        <segue destination="XLg-Va-iMF" kind="relationship" relationship="viewControllers" id="Wxa-HE-G5D"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NvC-Gd-RGz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -395,6 +387,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fzh-KH-zpx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="972" y="232"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="QAl-hU-GUd">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XLg-Va-iMF" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="M5s-7u-ez8"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qJ3-8X-Kfq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="u2Z-N7-MjW" kind="relationship" relationship="rootViewController" id="pDo-GS-sNv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FoZ-Ls-SZk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1878" y="231"/>
         </scene>
     </scenes>
     <resources>
