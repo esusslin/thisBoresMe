@@ -89,11 +89,13 @@ class homeVC: UICollectionViewController {
         return cell
     }
     
+    // header config
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         
         let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "Header", forIndexPath: indexPath) as! headerView
         
-        // get users data with connections to columns of PFUser class
+        // STEP 1: Get user data
+     
         header.name.text = (PFUser.currentUser()?.objectForKey("fullname") as? String)?.uppercaseString
         header.website.text = PFUser.currentUser()?.objectForKey("web") as? String
         header.bio.text = PFUser.currentUser()?.objectForKey("bio") as? String
@@ -106,6 +108,36 @@ class homeVC: UICollectionViewController {
         }
         
         header.button.setTitle("edit profile", forState: UIControlState.Normal)
+        
+        // STEP 1: Get user stats
+        
+        //count total posts
+        let posts = PFQuery(className: "posts")
+        posts.whereKey("username", equalTo: PFUser.currentUser()!.username!)
+        posts.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) in
+            if error == nil {
+                header.posts.text = "\(count)"
+            }
+        })
+        
+        // count total followers
+        let followers = PFQuery(className: "follow")
+        followers.whereKey("followed", equalTo: PFUser.currentUser()!.username!)
+        followers.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
+            if error == nil {
+                header.followers.text = "\(count)"
+            }
+        }
+        
+        // count total followed
+        let followed = PFQuery(className: "follow")
+        followed.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
+        followed.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
+            if error == nil {
+                header.following.text = "\(count)"
+            }
+        }
+        
         
         return header
         
