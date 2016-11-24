@@ -7,33 +7,125 @@
 //
 
 import UIKit
+import Parse
 
 var show = String()
 var user = String()
 
 class followersVC: UITableViewController {
+    
+    var usernameArray = [String]()
+    var avaArray = [PFFile]()
+    
+    var followArray = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
        self.navigationItem.title = show.uppercaseString
+        
+        if show == "followers" {
+            loadFollowers()
+        }
+        
+        if show == "following" {
+            loadFollowing()
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    
+    func loadFollowers() {
+        
+        // STEP 1: find followers of user
+        let followQuery = PFQuery(className: "follow")
+        
+        followQuery.whereKey("following", equalTo: user)
+        followQuery.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error:NSError?) in
+            if error == nil {
+                
+                self.followArray.removeAll(keepCapacity: false)
+                
+                // STEP 2: hold recieved data
+                for object in objects! {
+                    self.followArray.append(object.valueForKey("follower") as! String)
+                    
+                }
+                
+                // findUser class data of users who follow THE userfa
+                
+                
+                let query = PFUser.query()
+                query?.whereKey("username", containedIn: self.followArray)
+                query?.addDescendingOrder("createdAt")
+                query?.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) in
+                    
+                    if error == nil {
+                        self.usernameArray.removeAll(keepCapacity: false)
+                        self.avaArray.removeAll(keepCapacity: false)
+                        
+                        // find related objects in User class of Parse
+                        
+                        for object in objects! {
+                            self.usernameArray.append(object.objectForKey("username") as! String)
+                            self.avaArray.append(object.objectForKey("ava") as! PFFile)
+                            }
+                        } else {
+                            print(error!.localizedDescription)
+                        }
+                })
+            } else {
+                print(error!.localizedDescription)
+            }
+        }
+    
     }
 
+    func loadFollowing() {
+        
+        let followQuery = PFQuery(className: "follow")
+        followQuery.whereKey("following", equalTo: user)
+        followQuery.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error:NSError?) in
+            if error == nil {
+                
+                self.followArray.removeAll(keepCapacity: false)
+                
+                for object in objects! {
+                    self.followArray.append(object.valueForKey("followings") as! String)
+                }
+                
+                let query = PFQuery(className: "User")
+                query.whereKey("username", containedIn: self.followArray)
+                query.addDescendingOrder("createdAt")
+                query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) in
+                    
+                    if error == nil {
+                        
+                        self.usernameArray.removeAll(keepCapacity: false)
+                        self.avaArray.removeAll(keepCapacity: false)
+                        
+                        for object in objects! {
+                            
+                            self.usernameArray.append(object.objectForKey("username") as! String)
+                            self.avaArray.append(object.objectForKey("ava") as! PFFile)
+                        }
+                    } else {
+                        print(error!.localizedDescription)
+                    }
+                })
+            } else {
+                print(error!.localizedDescription)
+            }
+        }
+    }
+    
+    
+    
     // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return usernameArray.count
     }
 
     /*
