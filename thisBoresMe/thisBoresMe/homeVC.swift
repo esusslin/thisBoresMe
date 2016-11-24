@@ -109,7 +109,8 @@ class homeVC: UICollectionViewController {
         
         header.button.setTitle("edit profile", forState: UIControlState.Normal)
         
-        // STEP 1: Get user stats
+        
+        // STEP 2: Get user stats
         
         //count total posts
         let posts = PFQuery(className: "posts")
@@ -138,48 +139,63 @@ class homeVC: UICollectionViewController {
             }
         }
         
+        //STEP 3: implement tap gestures
+        
+        // tap posts
+        let postsTap = UITapGestureRecognizer(target: self, action: "postsTap")
+        postsTap.numberOfTapsRequired = 1
+        header.posts.userInteractionEnabled = true
+        header.posts.addGestureRecognizer(postsTap)
+        
+        // tap followers
+        let followersTap = UITapGestureRecognizer(target: self, action: "followersTap")
+        followersTap.numberOfTapsRequired = 1
+        header.followers.userInteractionEnabled = true
+        header.followers.addGestureRecognizer(followersTap)
+        
+        // tap followings
+        let followingsTap = UITapGestureRecognizer(target: self, action: "followingsTap")
+        followingsTap.numberOfTapsRequired = 1
+        header.following.userInteractionEnabled = true
+        header.following.addGestureRecognizer(followingsTap)
+        
+        
         
         return header
         
     }
 
-//    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
-//    
-//        // Configure the cell
-//    
-//        return cell
-//    }
 
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
+    // taped post label
     
+    func postsTap() {
+        if !picArray.isEmpty {
+            let index = NSIndexPath(forItem: 0, inSection: 0)
+            self.collectionView?.scrollToItemAtIndexPath(index, atScrollPosition: UICollectionViewScrollPosition.Top, animated: true)
+        }
     }
-    */
+    
+    // tapped followers 
+    func followersTap() {
+        
+       let user = PFUser.currentUser()!.username!
+        
+        let show = "followers"
+        
+        let followers = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
+        
+        self.navigationController?.pushViewController(followers, animated: true)
+    }
+    
+    func followingsTap() {
+        
+        let user = PFUser.currentUser()!.username!
+        
+        let show = "following"
+        
+        let followings = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
+        
+        self.navigationController?.pushViewController(followings, animated: true)
+    }
 
 }
