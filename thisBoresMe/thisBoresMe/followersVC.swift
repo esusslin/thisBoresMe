@@ -22,13 +22,16 @@ class followersVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+            print("lol")
        self.navigationItem.title = show.uppercaseString
         
         if show == "followers" {
+            print("goodbye")
             loadFollowers()
         }
         
         if show == "following" {
+            print("hello")
             loadFollowing()
         }
     }
@@ -40,7 +43,7 @@ class followersVC: UITableViewController {
         // STEP 1: find followers of user
         let followQuery = PFQuery(className: "follow")
         
-        followQuery.whereKey("following", equalTo: user)
+        followQuery.whereKey("followed", equalTo: user)
         followQuery.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error:NSError?) in
             if error == nil {
                 
@@ -48,6 +51,7 @@ class followersVC: UITableViewController {
                 
                 // STEP 2: hold recieved data
                 for object in objects! {
+                    print(object)
                     self.followArray.append(object.valueForKey("follower") as! String)
                     
                 }
@@ -69,6 +73,7 @@ class followersVC: UITableViewController {
                         for object in objects! {
                             self.usernameArray.append(object.objectForKey("username") as! String)
                             self.avaArray.append(object.objectForKey("ava") as! PFFile)
+                            self.tableView.reloadData()
                             }
                         } else {
                             print(error!.localizedDescription)
@@ -84,17 +89,17 @@ class followersVC: UITableViewController {
     func loadFollowing() {
         
         let followQuery = PFQuery(className: "follow")
-        followQuery.whereKey("following", equalTo: user)
+        followQuery.whereKey("follower", equalTo: user)
         followQuery.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error:NSError?) in
             if error == nil {
                 
                 self.followArray.removeAll(keepCapacity: false)
                 
                 for object in objects! {
-                    self.followArray.append(object.valueForKey("followings") as! String)
+                    self.followArray.append(object.valueForKey("followed") as! String)
                 }
                 
-                let query = PFQuery(className: "User")
+                let query = PFQuery(className: "_User")
                 query.whereKey("username", containedIn: self.followArray)
                 query.addDescendingOrder("createdAt")
                 query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) in
@@ -108,6 +113,7 @@ class followersVC: UITableViewController {
                             
                             self.usernameArray.append(object.objectForKey("username") as! String)
                             self.avaArray.append(object.objectForKey("ava") as! PFFile)
+                            self.tableView.reloadData()
                         }
                     } else {
                         print(error!.localizedDescription)
@@ -126,6 +132,46 @@ class followersVC: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return usernameArray.count
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! followersCell
+        
+        //STEP 1. connect data from serv to objects
+        cell.usernameLbl.text = usernameArray[indexPath.row]
+        avaArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) in
+            if error == nil {
+                
+                cell.avaImg.image = UIImage(data: data!)
+            } else {
+                print(error!.localizedDescription)
+            }
+        }
+        
+        // STEP 2. Show do user following or do not
+        let query = PFQuery(className: "follow")
+        query.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
+        query.whereKey("followed", equalTo: cell.usernameLbl.text!)
+        query.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
+            
+            if error == nil {
+                if count == 0 {
+                cell.followBtn.setTitle("FOLLOW", forState: UIControlState.Normal)
+                cell.followBtn.backgroundColor = UIColor.lightGrayColor()
+                
+            } else {
+                cell.followBtn.setTitle("FOLLOWING", forState: UIControlState.Normal)
+                cell.followBtn.backgroundColor = UIColor.greenColor()
+            }
+        }
+    }
+        //hide follow button for current user
+        
+        if cell.usernameLbl.text == PFUser.currentUser()?.username {
+            cell.followBtn.hidden = true
+        }
+        return cell
     }
 
     /*

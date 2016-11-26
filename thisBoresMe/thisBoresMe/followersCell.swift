@@ -23,7 +23,8 @@ class followersCell: UITableViewCell {
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        
+        avaImg.layer.cornerRadius = avaImg.frame.size.width / 2
+        avaImg.clipsToBounds = true
     }
 
 }

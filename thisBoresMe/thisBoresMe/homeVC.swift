@@ -170,6 +170,7 @@ class homeVC: UICollectionViewController {
     
     func postsTap() {
         if !picArray.isEmpty {
+            
             let index = NSIndexPath(forItem: 0, inSection: 0)
             self.collectionView?.scrollToItemAtIndexPath(index, atScrollPosition: UICollectionViewScrollPosition.Top, animated: true)
         }
@@ -178,9 +179,9 @@ class homeVC: UICollectionViewController {
     // tapped followers 
     func followersTap() {
         
-       let user = PFUser.currentUser()!.username!
+       user = PFUser.currentUser()!.username!
         
-        let show = "followers"
+        show = "followers"
         
         let followers = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
         
@@ -189,9 +190,9 @@ class homeVC: UICollectionViewController {
     
     func followingsTap() {
         
-        let user = PFUser.currentUser()!.username!
+        user = PFUser.currentUser()!.username!
         
-        let show = "following"
+        show = "following"
         
         let followings = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
         
