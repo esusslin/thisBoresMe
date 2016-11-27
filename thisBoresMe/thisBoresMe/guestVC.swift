@@ -21,6 +21,8 @@ class guestVC: UICollectionViewController {
     var picArray = [PFFile]()
 
     override func viewDidLoad() {
+        
+
         super.viewDidLoad()
         
         self.collectionView?.backgroundColor = UIColor.whiteColor()
@@ -33,17 +35,17 @@ class guestVC: UICollectionViewController {
         
         // new back button
         self.navigationItem.hidesBackButton = true
-        
         let backBtn = UIBarButtonItem(title: "back", style: UIBarButtonItemStyle.Plain, target: self, action: "back:")
         self.navigationItem.leftBarButtonItem = backBtn
         
+        //swipe to go back
         let backSwipe = UISwipeGestureRecognizer(target: self, action: "back:")
         backSwipe.direction = UISwipeGestureRecognizerDirection.Right
         self.view.addGestureRecognizer(backSwipe)
         
         //pull to refresh
         refresher = UIRefreshControl()
-        refresher.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        refresher.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
         collectionView?.addSubview(refresher)
         
         // call load posts
@@ -71,12 +73,15 @@ class guestVC: UICollectionViewController {
     
     func loadPosts() {
         
+        print("load posts?")
+        print(guestname.last!)
+        
         //load posts
         let query = PFQuery(className: "posts")
         query.whereKey("username", equalTo: guestname.last!)
         query.limit = page
         
-        query.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error:NSError?) in
+        query.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) in
             
             if error == nil {
                 
@@ -94,7 +99,7 @@ class guestVC: UICollectionViewController {
             } else {
                 print(error!.localizedDescription)
             }
-        }
+        })
     }
     
     
@@ -131,7 +136,7 @@ class guestVC: UICollectionViewController {
         //STEP 1. load data of guest
         let infoQuery = PFQuery(className: "_User")
         infoQuery.whereKey("username", equalTo: guestname.last!)
-        infoQuery.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error:NSError?) in
+        infoQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) in
             
             if error == nil {
                 
@@ -154,13 +159,13 @@ class guestVC: UICollectionViewController {
             } else {
                 print(error?.localizedDescription)
             }
-        }
+        })
         
-        //Step 2. show do current user follows guest
+//        //Step 2. show if current user follows guest
         let followQuery = PFQuery(className: "follow")
         followQuery.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
-        followQuery.whereKey("follow", equalTo: guestname.last!)
-        followQuery.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
+        followQuery.whereKey("followed", equalTo: guestname.last!)
+        followQuery.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) in
             
             if error == nil {
                 
@@ -174,40 +179,42 @@ class guestVC: UICollectionViewController {
             } else {
                 print(error?.localizedDescription)
             }
-        }
+        })
         
         //STEP 3. Count statistics
         //count posts
         
         let posts = PFQuery(className: "posts")
         posts.whereKey("username", equalTo: guestname.last!)
-        posts.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
+        posts.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) in
             if error == nil {
                 
                 header.posts.text = "\(count)"
             } else {
                 print(error?.localizedDescription)
             }
-        }
+        })
         
         //count followers
         
-        let followers = PFQuery(className: "posts")
+        let followers = PFQuery(className: "follow")
         followers.whereKey("followed", equalTo: guestname.last!)
-        followers.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
+        followers.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) in
             if error == nil {
+                print("followers?")
                 header.followers.text = "\(count)"
             } else {
                 print(error?.localizedDescription)
             }
-        }
+        })
         
         //count followings
         
-        let following = PFQuery(className: "posts")
+        let following = PFQuery(className: "follow")
         followers.whereKey("follower", equalTo: guestname.last!)
         followers.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
             if error == nil {
+                print("following?")
                 header.followers.text = "\(count)"
             } else {
                 print(error?.localizedDescription)

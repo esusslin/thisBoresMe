@@ -174,7 +174,8 @@ class followersVC: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
         //recall cell to call further cell's data
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! followersCell
         
@@ -192,9 +193,7 @@ class followersVC: UITableViewController {
             let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
             self.navigationController?.pushViewController(guest, animated: true)
         }
-
     }
-    
 
 
     /*
