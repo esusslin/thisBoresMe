@@ -37,7 +37,7 @@ class followersCell: UITableViewCell {
         if title == "FOLLOW" {
             let object = PFObject(className: "follow")
             object["follower"] = PFUser.currentUser()?.username
-            object["following"] = usernameLbl.text
+            object["followed"] = usernameLbl.text
             object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) in
                 
                 if success {
@@ -52,7 +52,7 @@ class followersCell: UITableViewCell {
         } else {
             let query = PFQuery(className: "follow")
             query.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
-            query.whereKey("following", equalTo: usernameLbl.text!)
+            query.whereKey("followed", equalTo: usernameLbl.text!)
             query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) in
                 if error == nil {
                     for object in objects! {

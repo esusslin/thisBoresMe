@@ -30,6 +30,9 @@ class guestVC: UICollectionViewController {
         // allow vertical scroll
         self.collectionView!.alwaysBounceVertical = true
         
+        //background color
+        self.collectionView?.backgroundColor = UIColor.whiteColor()
+        
         // top title
         self.navigationItem.title = guestname.last
         
