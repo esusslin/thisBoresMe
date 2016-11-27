@@ -195,65 +195,63 @@ class guestVC: UICollectionViewController {
             }
         })
         
-        //count followers
-        
+        // count total followers
         let followers = PFQuery(className: "follow")
         followers.whereKey("followed", equalTo: guestname.last!)
-        followers.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) in
-            if error == nil {
-                print("followers?")
-                header.followers.text = "\(count)"
-            } else {
-                print(error?.localizedDescription)
-            }
-        })
-        
-        //count followings
-        
-        let following = PFQuery(className: "follow")
-        followers.whereKey("follower", equalTo: guestname.last!)
         followers.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
             if error == nil {
-                print("following?")
                 header.followers.text = "\(count)"
-            } else {
-                print(error?.localizedDescription)
             }
         }
         
-        //STEP 4. Implement tap gestures
+        // count total followed
+        let followed = PFQuery(className: "follow")
+        followed.whereKey("follower", equalTo: guestname.last!)
+        followed.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
+            if error == nil {
+                header.following.text = "\(count)"
+            }
+        }
         
+        // tap posts
         let postsTap = UITapGestureRecognizer(target: self, action: "postsTap")
         postsTap.numberOfTapsRequired = 1
         header.posts.userInteractionEnabled = true
         header.posts.addGestureRecognizer(postsTap)
         
+        // tap followers
         let followersTap = UITapGestureRecognizer(target: self, action: "followersTap")
         followersTap.numberOfTapsRequired = 1
         header.followers.userInteractionEnabled = true
+        header.followers.addGestureRecognizer(followersTap)
         
-        let followingTap = UITapGestureRecognizer(target: self, action: "followingTap")
-        followingTap.numberOfTapsRequired = 1
+        // tap followings
+        let followingsTap = UITapGestureRecognizer(target: self, action: "followingsTap")
+        followingsTap.numberOfTapsRequired = 1
         header.following.userInteractionEnabled = true
-        header.following.addGestureRecognizer(followingTap)
+        header.following.addGestureRecognizer(followingsTap)
         
         return header
-    }
+
+   }
     
-    //tap post label
-    func postTap() {
+    // taped post label
+    
+    func postsTap() {
         if !picArray.isEmpty {
-            let index = NSIndexPath(forItem: 3, inSection: 0)
+            
+            let index = NSIndexPath(forItem: 0, inSection: 0)
             self.collectionView?.scrollToItemAtIndexPath(index, atScrollPosition: UICollectionViewScrollPosition.Top, animated: true)
         }
     }
     
+    // tapped followers
     func followersTap() {
         
         user = guestname.last!
+        
         show = "followers"
         
-        //>> followersVC
         let followers = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
         
         self.navigationController?.pushViewController(followers, animated: true)
@@ -262,10 +260,11 @@ class guestVC: UICollectionViewController {
     func followingsTap() {
         
         user = guestname.last!
+        
         show = "following"
         
-        let following = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
+        let followings = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
         
-        self.navigationController?.pushViewController(following, animated: true)
+        self.navigationController?.pushViewController(followings, animated: true)
     }
 }
