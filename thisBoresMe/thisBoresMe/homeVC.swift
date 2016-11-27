@@ -204,5 +204,30 @@ class homeVC: UICollectionViewController {
         
         self.navigationController?.pushViewController(followings, animated: true)
     }
+    
+    
+    // clicked log out
+    @IBAction func logout(sender: AnyObject) {
+        
+        PFUser.logOutInBackgroundWithBlock { (error:NSError?) in
+            
+            if error == nil {
+                
+                print("log out pressed")
+                
+                //remove logged in user from App memory
+                
+                NSUserDefaults.standardUserDefaults().removeObjectForKey("username")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                
+                let signin = self.storyboard?.instantiateViewControllerWithIdentifier("signInVC") as! signInVC
+                let appDelegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                appDelegate.window?.rootViewController = signin
+            }
+        }
+        
+        
+    }
+    
 
 }

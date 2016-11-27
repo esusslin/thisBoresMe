@@ -137,7 +137,13 @@
                             <outlet property="delegate" destination="u2Z-N7-MjW" id="Kbe-3B-klG"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="4mh-Za-UAR"/>
+                    <navigationItem key="navigationItem" id="4mh-Za-UAR">
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="zR9-lG-zfY">
+                            <connections>
+                                <action selector="logout:" destination="u2Z-N7-MjW" id="4vR-tR-iP5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GwC-fm-6HX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -362,7 +368,7 @@
         <!--Sign InVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="signInVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="signInVC" id="BYZ-38-t0r" customClass="signInVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -619,7 +625,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SHy-gg-Thv" id="9dQ-ek-A24">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
