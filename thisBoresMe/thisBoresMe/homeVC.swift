@@ -26,10 +26,16 @@ class homeVC: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //always vertical scroll
+        self.collectionView?.alwaysBounceVertical = true
+        
+        //background color
         collectionView?.backgroundColor = .whiteColor()
         
+        // title at the top
         self.navigationItem.title = PFUser.currentUser()?.username?.uppercaseString
         
+        //pull to refresh
         refresher = UIRefreshControl()
         refresher.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
         collectionView?.addSubview(refresher)
