@@ -30,6 +30,11 @@
 		E26E0BD41DE12D7E00D2D027 /* signInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26E0BD31DE12D7E00D2D027 /* signInVC.swift */; };
 		E26E0BD61DE12D9800D2D027 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26E0BD51DE12D9800D2D027 /* SignUpVC.swift */; };
 		E26E0BD81DE12DAB00D2D027 /* resetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26E0BD71DE12DAB00D2D027 /* resetPasswordVC.swift */; };
+		E26E0BDA1DE405E700D2D027 /* homeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26E0BD91DE405E700D2D027 /* homeVC.swift */; };
+		E26E0BDC1DE4060200D2D027 /* headerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26E0BDB1DE4060200D2D027 /* headerView.swift */; };
+		E26E0BDE1DE4074900D2D027 /* pictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26E0BDD1DE4074900D2D027 /* pictureCell.swift */; };
+		E26E0BE01DE42AA900D2D027 /* followersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26E0BDF1DE42AA900D2D027 /* followersVC.swift */; };
+		E26E0BE21DE42ABF00D2D027 /* followersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26E0BE11DE42ABF00D2D027 /* followersCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +84,11 @@
 		E26E0BD31DE12D7E00D2D027 /* signInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = signInVC.swift; sourceTree = "<group>"; };
 		E26E0BD51DE12D9800D2D027 /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		E26E0BD71DE12DAB00D2D027 /* resetPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = resetPasswordVC.swift; sourceTree = "<group>"; };
+		E26E0BD91DE405E700D2D027 /* homeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = homeVC.swift; sourceTree = "<group>"; };
+		E26E0BDB1DE4060200D2D027 /* headerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = headerView.swift; sourceTree = "<group>"; };
+		E26E0BDD1DE4074900D2D027 /* pictureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pictureCell.swift; sourceTree = "<group>"; };
+		E26E0BDF1DE42AA900D2D027 /* followersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = followersVC.swift; sourceTree = "<group>"; };
+		E26E0BE11DE42ABF00D2D027 /* followersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = followersCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +173,11 @@
 				E26E0BD31DE12D7E00D2D027 /* signInVC.swift */,
 				E26E0BD51DE12D9800D2D027 /* SignUpVC.swift */,
 				E26E0BD71DE12DAB00D2D027 /* resetPasswordVC.swift */,
+				E26E0BD91DE405E700D2D027 /* homeVC.swift */,
+				E26E0BDB1DE4060200D2D027 /* headerView.swift */,
+				E26E0BDD1DE4074900D2D027 /* pictureCell.swift */,
+				E26E0BDF1DE42AA900D2D027 /* followersVC.swift */,
+				E26E0BE11DE42ABF00D2D027 /* followersCell.swift */,
 			);
 			path = thisBoresMe;
 			sourceTree = "<group>";
@@ -320,9 +335,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E26E0BDE1DE4074900D2D027 /* pictureCell.swift in Sources */,
 				E26E0BD61DE12D9800D2D027 /* SignUpVC.swift in Sources */,
+				E26E0BDA1DE405E700D2D027 /* homeVC.swift in Sources */,
+				E26E0BE01DE42AA900D2D027 /* followersVC.swift in Sources */,
 				E26E0B8E1DE0FD3200D2D027 /* ViewController.swift in Sources */,
+				E26E0BDC1DE4060200D2D027 /* headerView.swift in Sources */,
 				E26E0BD41DE12D7E00D2D027 /* signInVC.swift in Sources */,
+				E26E0BE21DE42ABF00D2D027 /* followersCell.swift in Sources */,
 				E26E0B8C1DE0FD3200D2D027 /* AppDelegate.swift in Sources */,
 				E26E0BD81DE12DAB00D2D027 /* resetPasswordVC.swift in Sources */,
 			);
