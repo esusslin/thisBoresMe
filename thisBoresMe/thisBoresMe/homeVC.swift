@@ -44,6 +44,9 @@ class homeVC: UICollectionViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reload:", name: "reload", object: nil)
         
+        //recieve notificatoin from uploadVC
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "uploaded:", name: "uploaded", object: nil)
+        
         loadPosts()
 
     }
@@ -56,8 +59,14 @@ class homeVC: UICollectionViewController {
         refresher.endRefreshing()
     }
     
+    //reload after recieving notification
     func reload(notification:NSNotification) {
         collectionView?.reloadData()
+    }
+    
+    //reload function
+    func uploaded(notification:NSNotification) {
+        loadPosts()
     }
     
     func loadPosts() {
@@ -67,6 +76,7 @@ class homeVC: UICollectionViewController {
         query.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) in
             if error == nil {
                 
+                //clean up
                 self.uuidArray.removeAll(keepCapacity: false)
                 self.picArray.removeAll(keepCapacity: false)
                 

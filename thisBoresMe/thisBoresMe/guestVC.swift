@@ -88,6 +88,10 @@ class guestVC: UICollectionViewController {
             
             if error == nil {
                 
+                //clean up
+                self.uuidArray.removeAll(keepCapacity: false)
+                self.picArray.removeAll(keepCapacity: false)
+                
                 //find related objects
                 for object in objects! {
                     

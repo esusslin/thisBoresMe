@@ -16,6 +16,7 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     @IBOutlet weak var titleTxt: UITextView!
 
     @IBOutlet weak var publishBtn: UIButton!
+    @IBOutlet weak var removeBtn: UIButton!
     
 
 
@@ -24,6 +25,9 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         publishBtn.enabled = false
         publishBtn.backgroundColor = UIColor.lightGrayColor()
+        
+        //hide remove button
+        removeBtn.hidden = true
         
         // hide keyboard tap
         
@@ -67,6 +71,10 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         // enable publish btn
         publishBtn.enabled = true
         publishBtn.backgroundColor = UIColor(red: 52.0/255.0, green: 169.0/255.0, blue: 255.0/255.0, alpha: 1)
+        
+        // unhide remove button
+        
+        publishBtn.hidden = false
         
         // implement second tap for zooming image
         
@@ -130,11 +138,59 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         let width = self.view.frame.size.width
         
         picImg.frame = CGRectMake(15, self.navigationController!.navigationBar.frame.size.height + 35, width / 4.5, width / 4.5)
-        
         titleTxt.frame = CGRectMake(picImg.frame.size.width + 25, picImg.frame.origin.y, width - titleTxt.frame.origin.x - 10, picImg.frame.size.height)
-        
         publishBtn.frame = CGRectMake(0, self.tabBarController!.tabBar.frame.origin.y - width / 8, width, width / 8)
+        removeBtn.frame = CGRectMake(picImg.frame.origin.x, picImg.frame.origin.y + picImg.frame.size.height + 20, picImg.frame.size.width, 30)
     }
+    
+    
+    @IBAction func publishBtn_pressed(sender: AnyObject) {
+        
+        //dismiss keyboard
+        
+        self.view.endEditing(true)
+        
+        //sent data to server to 'posts' class in Parse
+        let object = PFObject(className: "posts")
+        object["username"] = PFUser.currentUser()!.username
+        object["ava"] = PFUser.currentUser()!.valueForKey("ava") as! PFFile
+        object["uuid"] = "\(PFUser.currentUser()!.username) \(NSUUID().UUIDString)"
+        
+        if titleTxt.text.isEmpty {
+            object["title"] = ""
+            
+        } else {
+            object["title"] = titleTxt.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        }
+        
+        // send pic to server after converting to FILE and compression
+        let imageData = UIImageJPEGRepresentation(picImg.image!, 0.5)
+        let imageFile = PFFile(name: "post.jpg", data: imageData!)
+        object["pic"] = imageFile
+        
+        //save post to server and return to homepage
+        object.saveInBackgroundWithBlock ({ (success:Bool, error:NSError?) in
+            
+            if error == nil {
+                
+                //inform user post has been uploaded
+                NSNotificationCenter.defaultCenter().postNotificationName("uploaded", object: nil)
+                
+                //go home
+                self.tabBarController!.selectedIndex = 0
+            }
+        })
+     
+    }
+    
+    @IBAction func removeBtn(sender: AnyObject) {
+        
+        
+    }
+    
+    
+    
+    
 
 
 }

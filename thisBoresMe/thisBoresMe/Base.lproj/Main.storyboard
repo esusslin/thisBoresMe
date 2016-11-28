@@ -756,7 +756,7 @@
                                 <rect key="frame" x="20" y="83" width="70" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" id="dd7-iz-mnD">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="dd7-iz-mnD">
                                 <rect key="frame" x="98" y="83" width="202" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -771,6 +771,18 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="publishBtn_pressed:" destination="KOE-nr-CB6" eventType="touchUpInside" id="Jif-oG-0Qd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xgc-m7-Y6x">
+                                <rect key="frame" x="20" y="161" width="70" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="remove"/>
+                                <connections>
+                                    <action selector="removeBtn:" destination="KOE-nr-CB6" eventType="touchUpInside" id="dNp-Xj-OSR"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -779,6 +791,7 @@
                     <connections>
                         <outlet property="picImg" destination="Vv1-wP-kke" id="ryJ-b5-nN9"/>
                         <outlet property="publishBtn" destination="eL7-Zv-x9b" id="Xi8-vZ-r1E"/>
+                        <outlet property="removeBtn" destination="xgc-m7-Y6x" id="ws5-sv-Lsn"/>
                         <outlet property="titleTxt" destination="dd7-iz-mnD" id="ciN-3V-Qiw"/>
                     </connections>
                 </viewController>
