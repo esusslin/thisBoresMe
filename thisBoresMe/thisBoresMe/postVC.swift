@@ -40,8 +40,8 @@ class postVC: UITableViewController {
         self.view.addGestureRecognizer(backSwipe)
         
         // dynamic cell hieght
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 450
+//        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.estimatedRowHeight = 450
         
         // find posts
         let postQuery = PFQuery(className: "posts")
@@ -70,6 +70,8 @@ class postVC: UITableViewController {
                     self.titleArray.append(object.valueForKey("title") as! String)
                     
                 }
+                
+                self.tableView.reloadData()
             }
         })
         
@@ -80,7 +82,7 @@ class postVC: UITableViewController {
     //cell numb
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 1
+        return usernameArray.count
     }
     
     //cell config
@@ -92,6 +94,8 @@ class postVC: UITableViewController {
         //connect objects with our information from arrays
         cell.usernameBtn.setTitle(usernameArray[indexPath.row], forState: UIControlState.Normal)
         cell.uuidLbl.text = uuidArray[indexPath.row]
+        cell.titleLbl.text = titleArray[indexPath.row]
+        cell.titleLbl.sizeToFit()
         
         //place avatar
         avaArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) in
@@ -103,7 +107,50 @@ class postVC: UITableViewController {
             cell.picImg.image = UIImage(data: data!)
         }
         
+        let from = dateArray[indexPath.row]
+        let now = NSDate()
+        let components : NSCalendarUnit = [.Second, .Minute, .Hour, .Day, .WeekOfMonth]
+        let difference = NSCalendar.currentCalendar().components(components, fromDate: from!, toDate: now, options: [])
+        
+        //logic what to show in seconds, minutes, hours, days, or weeks
+        
+        if difference.second <= 0 {
+            cell.dateLbl.text = "now"
+        }
+        
+        if difference.second > 0 && difference.minute == 0 {
+            cell.dateLbl.text = "\(difference.second)s."
+        }
+        
+        if difference.minute > 0 && difference.hour == 0 {
+            cell.dateLbl.text = "\(difference.minute)s."
+        }
+        
+        if difference.hour > 0 && difference.day == 0 {
+            cell.dateLbl.text = "\(difference.hour)h"
+        }
+        
+        if difference.day > 0 && difference.weekOfMonth == 0 {
+            cell.dateLbl.text = "\(difference.day)d."
+        }
+        
+        if difference.weekOfMonth > 0 {
+            cell.dateLbl.text = "\(difference.weekOfMonth)w."
+        }
+        
         return cell
+    }
+    
+    // go back function
+    func back(sender: UIBarButtonItem) {
+        
+        // push back
+        self.navigationController?.popViewControllerAnimated(true)
+        
+        //clean post uuid from last hold
+        if !postuuid.isEmpty {
+            postuuid.removeLast()
+        }
     }
     
     
