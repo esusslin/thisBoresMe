@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E2007A4D1DEBB8A600A1AFC4 /* editVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2007A4C1DEBB8A600A1AFC4 /* editVC.swift */; };
 		E21FFA981DEA946500CAF3EC /* guestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21FFA971DEA946500CAF3EC /* guestVC.swift */; };
 		E26E0B8C1DE0FD3200D2D027 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26E0B8B1DE0FD3200D2D027 /* AppDelegate.swift */; };
 		E26E0B8E1DE0FD3200D2D027 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26E0B8D1DE0FD3200D2D027 /* ViewController.swift */; };
@@ -56,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E2007A4C1DEBB8A600A1AFC4 /* editVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = editVC.swift; sourceTree = "<group>"; };
 		E21FFA971DEA946500CAF3EC /* guestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = guestVC.swift; sourceTree = "<group>"; };
 		E26E0B881DE0FD3200D2D027 /* thisBoresMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = thisBoresMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E26E0B8B1DE0FD3200D2D027 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				E26E0BDF1DE42AA900D2D027 /* followersVC.swift */,
 				E26E0BE11DE42ABF00D2D027 /* followersCell.swift */,
 				E21FFA971DEA946500CAF3EC /* guestVC.swift */,
+				E2007A4C1DEBB8A600A1AFC4 /* editVC.swift */,
 			);
 			path = thisBoresMe;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 			files = (
 				E21FFA981DEA946500CAF3EC /* guestVC.swift in Sources */,
 				E26E0BDE1DE4074900D2D027 /* pictureCell.swift in Sources */,
+				E2007A4D1DEBB8A600A1AFC4 /* editVC.swift in Sources */,
 				E26E0BD61DE12D9800D2D027 /* SignUpVC.swift in Sources */,
 				E26E0BDA1DE405E700D2D027 /* homeVC.swift in Sources */,
 				E26E0BE01DE42AA900D2D027 /* followersVC.swift in Sources */,

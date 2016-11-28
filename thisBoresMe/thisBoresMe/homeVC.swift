@@ -40,16 +40,24 @@ class homeVC: UICollectionViewController {
         refresher.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
         collectionView?.addSubview(refresher)
         
+        // receive notificatoin from editVC
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reload:", name: "reload", object: nil)
+        
         loadPosts()
 
     }
     
-    func refresh() {
+    func refresh(notification:NSNotification) {
         
         //reload data information
         collectionView?.reloadData()
         
         refresher.endRefreshing()
+    }
+    
+    func reload(notification:NSNotification) {
+        collectionView?.reloadData()
     }
     
     func loadPosts() {

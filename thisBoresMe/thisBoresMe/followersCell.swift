@@ -23,6 +23,14 @@ class followersCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        
+        //alignment
+        
+        let width = UIScreen.mainScreen().bounds.width
+        
+        avaImg.frame = CGRectMake(10, 10, width / 5.3, width / 5.3)
+        usernameLbl.frame = CGRectMake(avaImg.frame.size.width + 20, 30, width / 3.2, 30)
+        followBtn.frame = CGRectMake(width - width / 3.5 - 10, 30, width / 3.5, 30)
 
         avaImg.layer.cornerRadius = avaImg.frame.size.width / 2
         avaImg.clipsToBounds = true
