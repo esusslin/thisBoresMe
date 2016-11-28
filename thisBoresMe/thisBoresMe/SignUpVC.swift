@@ -122,6 +122,7 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         self.view.endEditing(true)
         
+        //if fields are empty
         if (usernameTxt.text!.isEmpty || passwordTxt.text!.isEmpty || retypePasswordTxt.text!.isEmpty || emailTxt.text!.isEmpty || fullnameTxt.text!.isEmpty || bioTxt.text!.isEmpty || webTxt.text!.isEmpty) {
             
             let alert = UIAlertController(title: "Please", message: "fill out all fields", preferredStyle: UIAlertControllerStyle.Alert)
@@ -130,8 +131,9 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             alert.addAction(ok)
             self.presentViewController(alert, animated: true, completion: nil)
             
+            return
         }
-        
+        //if passwords don't match
         if passwordTxt.text != retypePasswordTxt.text {
             let alert = UIAlertController(title: "PASSWORDS", message: "Do not match", preferredStyle: UIAlertControllerStyle.Alert)
             let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)

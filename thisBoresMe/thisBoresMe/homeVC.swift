@@ -40,16 +40,33 @@ class homeVC: UICollectionViewController {
         refresher.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
         collectionView?.addSubview(refresher)
         
+        // receive notificatoin from editVC
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reload:", name: "reload", object: nil)
+        
+        //recieve notificatoin from uploadVC
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "uploaded:", name: "uploaded", object: nil)
+        
         loadPosts()
 
     }
     
-    func refresh() {
+    func refresh(notification:NSNotification) {
         
         //reload data information
         collectionView?.reloadData()
         
         refresher.endRefreshing()
+    }
+    
+    //reload after recieving notification
+    func reload(notification:NSNotification) {
+        collectionView?.reloadData()
+    }
+    
+    //reload function
+    func uploaded(notification:NSNotification) {
+        loadPosts()
     }
     
     func loadPosts() {
@@ -59,6 +76,7 @@ class homeVC: UICollectionViewController {
         query.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) in
             if error == nil {
                 
+                //clean up
                 self.uuidArray.removeAll(keepCapacity: false)
                 self.picArray.removeAll(keepCapacity: false)
                 
@@ -75,11 +93,64 @@ class homeVC: UICollectionViewController {
             }
         })
     }
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        
+        if scrollView.contentOffset.y >= scrollView.contentSize.height - self.view.frame.size.height {
+            self.loadMore()
+        }
+    }
+    
+    func loadMore() {
+        
+        if page <= picArray.count {
+            
+            //increase page size
+            page = page + 12
+            
+            //load more posts
+            let query = PFQuery(className: "posts")
+            query.whereKey("username", equalTo: PFUser.currentUser()!.username!)
+            query.limit = page
+            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) in
+                if error == nil {
+                    
+                    //clean up
+                    self.uuidArray.removeAll(keepCapacity: false)
+                    self.picArray.removeAll(keepCapacity: false)
+                    
+                    // find related objects
+                    for object in objects! {
+                        self.uuidArray.append(object.valueForKey("uuid") as! String)
+                        self.picArray.append(object.valueForKey("pic") as! PFFile)
+                    }
+                    
+                    print("loaded +\(self.page)")
+                    self.collectionView?.reloadData()
+                } else {
+                    print(error?.localizedDescription)
+                }
+            })
+        }
+    }
+    
+    
+    
+    
+    
 
     // cell numb
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return picArray.count
+    }
+    
+    //cell size 
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        let size = CGSize(width: self.view.frame.size.width / 3, height: self.view.frame.size.width / 3)
+        return size
+        
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -204,5 +275,43 @@ class homeVC: UICollectionViewController {
         
         self.navigationController?.pushViewController(followings, animated: true)
     }
+    
+    
+    // clicked log out
+    @IBAction func logout(sender: AnyObject) {
+        
+        PFUser.logOutInBackgroundWithBlock { (error:NSError?) in
+            
+            if error == nil {
+                
+                print("log out pressed")
+                
+                //remove logged in user from App memory
+                
+                NSUserDefaults.standardUserDefaults().removeObjectForKey("username")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                
+                let signin = self.storyboard?.instantiateViewControllerWithIdentifier("signInVC") as! signInVC
+                let appDelegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                appDelegate.window?.rootViewController = signin
+            }
+        }
+        
+        
+    }
+    
+    
+    
+    // go post
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
+        //send post uuid to "postuuid" variable
+        postuuid.append(uuidArray[indexPath.row])
+        
+        //navigate to post view controller
+        let post = self.storyboard?.instantiateViewControllerWithIdentifier("postVC") as! postVC
+        self.navigationController?.pushViewController(post, animated: true)
+    }
+    
 
 }

@@ -127,11 +127,16 @@ class followersVC: UITableViewController {
     
     
     
-    // MARK: - Table view data source
-
+    // cell numb
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return usernameArray.count
+    }
+    
+    //cell height
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return self.view.frame.size.width / 4
+        
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

@@ -15,7 +15,7 @@ var guestname = [String]()
 class guestVC: UICollectionViewController {
     
     var refresher : UIRefreshControl!
-    var page : Int = 10
+    var page : Int = 12
     
     var uuidArray = [String]()
     var picArray = [PFFile]()
@@ -29,6 +29,9 @@ class guestVC: UICollectionViewController {
         
         // allow vertical scroll
         self.collectionView!.alwaysBounceVertical = true
+        
+        //background color
+        self.collectionView?.backgroundColor = UIColor.whiteColor()
         
         // top title
         self.navigationItem.title = guestname.last
@@ -85,6 +88,10 @@ class guestVC: UICollectionViewController {
             
             if error == nil {
                 
+                //clean up
+                self.uuidArray.removeAll(keepCapacity: false)
+                self.picArray.removeAll(keepCapacity: false)
+                
                 //find related objects
                 for object in objects! {
                     
@@ -103,8 +110,58 @@ class guestVC: UICollectionViewController {
     }
     
     
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        
+        if scrollView.contentOffset.y >= scrollView.contentSize.height - self.view.frame.size.height {
+            self.loadMore()
+        }
+    }
+    
+    func loadMore() {
+        
+        if page <= picArray.count {
+            
+            //increase page size
+            page = page + 12
+            
+            //load more posts
+            let query = PFQuery(className: "posts")
+            query.whereKey("username", equalTo: guestname.last!)
+            query.limit = page
+            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) in
+                if error == nil {
+                    
+                    //clean up
+                    self.uuidArray.removeAll(keepCapacity: false)
+                    self.picArray.removeAll(keepCapacity: false)
+                    
+                    // find related objects
+                    for object in objects! {
+                        self.uuidArray.append(object.valueForKey("uuid") as! String)
+                        self.picArray.append(object.valueForKey("pic") as! PFFile)
+                    }
+                    
+                    print("loaded +\(self.page)")
+                    self.collectionView?.reloadData()
+                } else {
+                    print(error?.localizedDescription)
+                }
+            })
+        }
+    }
+
+    
+    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return picArray.count
+        return picArray.count * 20
+    }
+    
+    //cell size
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        let size = CGSize(width: self.view.frame.size.width / 3, height: self.view.frame.size.width / 3)
+        return size
+        
     }
     
     //cell config
@@ -115,7 +172,7 @@ class guestVC: UICollectionViewController {
         
         // connect data from array to picIMg object from pictureCell class
         
-        picArray[indexPath.row].getDataInBackgroundWithBlock ({ (data:NSData?, error:NSError?) in
+        picArray[0].getDataInBackgroundWithBlock ({ (data:NSData?, error:NSError?) in
             
             if error == nil {
                 cell.picImg.image = UIImage(data: data!)

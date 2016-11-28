@@ -23,6 +23,14 @@ class followersCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        
+        //alignment
+        
+        let width = UIScreen.mainScreen().bounds.width
+        
+        avaImg.frame = CGRectMake(10, 10, width / 5.3, width / 5.3)
+        usernameLbl.frame = CGRectMake(avaImg.frame.size.width + 20, 30, width / 3.2, 30)
+        followBtn.frame = CGRectMake(width - width / 3.5 - 10, 30, width / 3.5, 30)
 
         avaImg.layer.cornerRadius = avaImg.frame.size.width / 2
         avaImg.clipsToBounds = true
@@ -37,7 +45,7 @@ class followersCell: UITableViewCell {
         if title == "FOLLOW" {
             let object = PFObject(className: "follow")
             object["follower"] = PFUser.currentUser()?.username
-            object["following"] = usernameLbl.text
+            object["followed"] = usernameLbl.text
             object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) in
                 
                 if success {
@@ -52,7 +60,7 @@ class followersCell: UITableViewCell {
         } else {
             let query = PFQuery(className: "follow")
             query.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
-            query.whereKey("following", equalTo: usernameLbl.text!)
+            query.whereKey("followed", equalTo: usernameLbl.text!)
             query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) in
                 if error == nil {
                     for object in objects! {
