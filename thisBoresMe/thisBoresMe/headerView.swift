@@ -26,6 +26,33 @@ class headerView: UICollectionReusableView {
     
     @IBOutlet weak var button: UIButton!
 
+    override func awakeFromNib() {
+        
+        //alignment
+        let width = UIScreen.mainScreen().bounds.width
+        
+        avatarImage.frame = CGRectMake(width / 16, width / 16, width / 4, width / 4)
+        
+        posts.frame = CGRectMake(width / 2.5, avatarImage.frame.origin.y, 50, 30)
+        followers.frame = CGRectMake(width / 1.7, avatarImage.frame.origin.y, 50, 30)
+        following.frame = CGRectMake(width / 1.25, avatarImage.frame.origin.y, 50, 30)
+        
+        postsTitle.center = CGPointMake(posts.center.x, posts.center.y + 20)
+        followersTitle.center = CGPointMake(followers.center.x, followers.center.y + 20)
+        followingTitle.center = CGPointMake(following.center.x, following.center.y + 20)
+        
+        button.frame = CGRectMake(postsTitle.frame.origin.x, postsTitle.center.y + 20, width - postsTitle.frame.origin.x - 10, 30)
+        
+        name.frame = CGRectMake(avatarImage.frame.origin.x, avatarImage.frame.origin.y + avatarImage.frame.size.height, width - 30, 30)
+        
+        website.frame = CGRectMake(avatarImage.frame.origin.x - 5, name.frame.origin.y + 15, width - 30, 30)
+        bio.frame = CGRectMake(avatarImage.frame.origin.x, website.frame.origin.y + 30, width - 30, 30)
+        
+        // round avatar
+        avatarImage.layer.cornerRadius = avatarImage.frame.size.width / 2
+        avatarImage.clipsToBounds = true
+        
+    }
     
     //clicked follow button
     

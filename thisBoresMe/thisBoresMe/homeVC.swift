@@ -82,6 +82,14 @@ class homeVC: UICollectionViewController {
         return picArray.count
     }
     
+    //cell size 
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        let size = CGSize(width: self.view.frame.size.width / 3, height: self.view.frame.size.width / 3)
+        return size
+        
+    }
+    
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! pictureCell
