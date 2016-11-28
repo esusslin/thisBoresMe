@@ -29,6 +29,10 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         //hide remove button
         removeBtn.hidden = true
         
+        //standard UI containt
+        picImg.image = UIImage(named: "grey.jpeg")
+       
+        
         // hide keyboard tap
         
         let hideTap = UITapGestureRecognizer(target: self, action: "hideKeyboardTap")
@@ -74,7 +78,7 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         // unhide remove button
         
-        publishBtn.hidden = false
+        removeBtn.hidden = false
         
         // implement second tap for zooming image
         
@@ -140,7 +144,7 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         picImg.frame = CGRectMake(15, self.navigationController!.navigationBar.frame.size.height + 35, width / 4.5, width / 4.5)
         titleTxt.frame = CGRectMake(picImg.frame.size.width + 25, picImg.frame.origin.y, width - titleTxt.frame.origin.x - 10, picImg.frame.size.height)
         publishBtn.frame = CGRectMake(0, self.tabBarController!.tabBar.frame.origin.y - width / 8, width, width / 8)
-        removeBtn.frame = CGRectMake(picImg.frame.origin.x, picImg.frame.origin.y + picImg.frame.size.height + 20, picImg.frame.size.width, 30)
+        removeBtn.frame = CGRectMake(picImg.frame.origin.x, picImg.frame.origin.y + picImg.frame.size.height, picImg.frame.size.width, 20)
     }
     
     
@@ -178,13 +182,17 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 
                 //go home
                 self.tabBarController!.selectedIndex = 0
+                
+                // reset the page
+                self.viewDidLoad()
+                self.titleTxt.text = ""
             }
         })
      
     }
     
     @IBAction func removeBtn(sender: AnyObject) {
-        
+        self.viewDidLoad()
         
     }
     

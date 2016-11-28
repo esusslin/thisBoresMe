@@ -93,6 +93,51 @@ class homeVC: UICollectionViewController {
             }
         })
     }
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        
+        if scrollView.contentOffset.y >= scrollView.contentSize.height - self.view.frame.size.height {
+            self.loadMore()
+        }
+    }
+    
+    func loadMore() {
+        
+        if page <= picArray.count {
+            
+            //increase page size
+            page = page + 12
+            
+            //load more posts
+            let query = PFQuery(className: "posts")
+            query.whereKey("username", equalTo: PFUser.currentUser()!.username!)
+            query.limit = page
+            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) in
+                if error == nil {
+                    
+                    //clean up
+                    self.uuidArray.removeAll(keepCapacity: false)
+                    self.picArray.removeAll(keepCapacity: false)
+                    
+                    // find related objects
+                    for object in objects! {
+                        self.uuidArray.append(object.valueForKey("uuid") as! String)
+                        self.picArray.append(object.valueForKey("pic") as! PFFile)
+                    }
+                    
+                    print("loaded +\(self.page)")
+                    self.collectionView?.reloadData()
+                } else {
+                    print(error?.localizedDescription)
+                }
+            })
+        }
+    }
+    
+    
+    
+    
+    
 
     // cell numb
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
