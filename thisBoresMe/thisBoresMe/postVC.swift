@@ -40,8 +40,8 @@ class postVC: UITableViewController {
         self.view.addGestureRecognizer(backSwipe)
         
         // dynamic cell hieght
-//        tableView.rowHeight = UITableViewAutomaticDimension
-//        tableView.estimatedRowHeight = 450
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 450
         
         // find posts
         let postQuery = PFQuery(className: "posts")
@@ -138,6 +138,7 @@ class postVC: UITableViewController {
             cell.dateLbl.text = "\(difference.weekOfMonth)w."
         }
         
+        print(cell.dateLbl.text)
         return cell
     }
     
