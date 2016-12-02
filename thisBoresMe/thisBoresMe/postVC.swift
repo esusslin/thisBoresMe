@@ -101,6 +101,7 @@ class postVC: UITableViewController {
         
         //connect objects with our information from arrays
         cell.usernameBtn.setTitle(usernameArray[indexPath.row], forState: UIControlState.Normal)
+        cell.usernameBtn.sizeToFit()
         cell.uuidLbl.text = uuidArray[indexPath.row]
         cell.titleLbl.text = titleArray[indexPath.row]
         cell.titleLbl.sizeToFit()
@@ -186,7 +187,8 @@ class postVC: UITableViewController {
         let cell = tableView.cellForRowAtIndexPath(i) as! postCell
         
         if cell.usernameBtn.titleLabel?.text == PFUser.currentUser()?.username {
-            
+        
+            // if user tapped on himself, go home else go guest
             let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
             self.navigationController?.pushViewController(home, animated: true)
         } else {
