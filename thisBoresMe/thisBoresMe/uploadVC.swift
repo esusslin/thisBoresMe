@@ -46,8 +46,10 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         picImg.userInteractionEnabled = true
         picImg.addGestureRecognizer(picTap)
         
-
-       alignment()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        alignment()
     }
     
     //hide keyboard function
@@ -93,9 +95,11 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     //zooming IN / Out Function
     func zoomImg() {
         
-        let zoomed = CGRectMake(0, self.view.center.y - self.view.center.x, self.view.frame.size.width, self.view.frame.size.width)
+        //define frame of zoomed image
+        let zoomed = CGRectMake(0, self.view.center.y - self.view.center.x - self.tabBarController!.tabBar.frame.size.height * 1.5, self.view.frame.size.width, self.view.frame.size.width)
         
-        let unzoomed = CGRectMake(15, self.navigationController!.navigationBar.frame.size.height + 35, self.view.frame.size.width / 4.5, self.view.frame.size.width / 4.5)
+        //frame of unzoomed (small) image
+        let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.frame.size.width / 4.5)
         
         if picImg.frame == unzoomed {
             
@@ -109,6 +113,7 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 self.view.backgroundColor = UIColor.blackColor()
                 self.titleTxt.alpha = 0
                 self.publishBtn.alpha = 0
+                self.removeBtn.alpha = 0
                 
             })
             
@@ -126,6 +131,8 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 self.view.backgroundColor = UIColor.whiteColor()
                 self.titleTxt.alpha = 1
                 self.publishBtn.alpha = 1
+                self.removeBtn.alpha = 1
+                
             })
         }
         
@@ -140,10 +147,11 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     func alignment() {
         
         let width = self.view.frame.size.width
+        let height = self.view.frame.size.height
         
-        picImg.frame = CGRectMake(15, self.navigationController!.navigationBar.frame.size.height + 35, width / 4.5, width / 4.5)
-        titleTxt.frame = CGRectMake(picImg.frame.size.width + 25, picImg.frame.origin.y, width - titleTxt.frame.origin.x - 10, picImg.frame.size.height)
-        publishBtn.frame = CGRectMake(0, self.tabBarController!.tabBar.frame.origin.y - width / 8, width, width / 8)
+        picImg.frame = CGRectMake(15, 15, width / 4.5, width / 4.5)
+        titleTxt.frame = CGRectMake(picImg.frame.size.width + 25, picImg.frame.origin.y, width / 1.488, picImg.frame.size.height)
+        publishBtn.frame = CGRectMake(0, height / 1.09, width, width / 8)
         removeBtn.frame = CGRectMake(picImg.frame.origin.x, picImg.frame.origin.y + picImg.frame.size.height, picImg.frame.size.width, 20)
     }
     

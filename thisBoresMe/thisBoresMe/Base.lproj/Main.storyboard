@@ -285,6 +285,9 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <state key="normal" title="usernameBtn"/>
+                                            <connections>
+                                                <action selector="usernameBtn_click:" destination="NfJ-C4-DYE" eventType="touchUpInside" id="4Du-nG-gZT"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2h" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Z6y-mW-cpq">
                                             <rect key="frame" x="235" y="8" width="75" height="30"/>
@@ -293,23 +296,26 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="egi-ub-FKK">
-                                            <rect key="frame" x="10" y="354" width="46" height="30"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="egi-ub-FKK">
+                                            <rect key="frame" x="8" y="354" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <state key="normal" title="Like"/>
+                                            <state key="normal" title="Like" backgroundImage="unlike.png"/>
+                                            <connections>
+                                                <action selector="likeBtn_click:" destination="UrV-T2-MeP" eventType="touchUpInside" id="sm7-OE-rlL"/>
+                                            </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lJL-Y8-iLg">
-                                            <rect key="frame" x="127" y="354" width="67" height="30"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lJL-Y8-iLg">
+                                            <rect key="frame" x="107" y="354" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <state key="normal" title="comment"/>
+                                            <state key="normal" title="comment" image="comment.png"/>
+                                            <connections>
+                                                <action selector="commentBtn_click:" destination="NfJ-C4-DYE" eventType="touchUpInside" id="1PW-bx-aWS"/>
+                                            </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aUn-jK-4EJ">
-                                            <rect key="frame" x="264" y="354" width="46" height="30"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aUn-jK-4EJ">
+                                            <rect key="frame" x="280" y="354" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <state key="normal" title="more"/>
+                                            <state key="normal" image="more.png"/>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="M1c-Uk-4sG">
                                             <rect key="frame" x="64" y="354" width="22" height="30"/>
@@ -318,6 +324,10 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grey" id="LFz-3X-yVw">
+                                            <rect key="frame" x="10" y="46" width="300" height="300"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title label with description" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eKR-yG-JnY">
                                             <rect key="frame" x="10" y="392" width="300" height="50"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -325,10 +335,6 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grey" id="LFz-3X-yVw">
-                                            <rect key="frame" x="10" y="46" width="300" height="300"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
@@ -496,6 +502,81 @@
             </objects>
             <point key="canvasLocation" x="3134" y="232"/>
         </scene>
+        <!--CommentVC-->
+        <scene sceneID="WPN-6i-Z6P">
+            <objects>
+                <viewController storyboardIdentifier="commentVC" id="zyn-Ue-26p" customClass="commentVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FdF-6o-IDf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" id="uxY-GH-8Za">
+                                <rect key="frame" x="11" y="526" width="240" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6Ws-rr-iHS">
+                                <rect key="frame" x="259" y="526" width="50" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="send"/>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" id="Rrd-W5-HR2">
+                                <rect key="frame" x="-6" y="0.0" width="320" height="518"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="vvm-LS-ZXQ" customClass="commentCell" customModule="thisBoresMe" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vvm-LS-ZXQ" id="VuH-c5-7Cy">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_placeholder" id="xrI-zM-2u6">
+                                                    <rect key="frame" x="10" y="10" width="40" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Vao-Ou-ke1">
+                                                    <rect key="frame" x="65" y="10" width="166" height="19"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <state key="normal" title="username"/>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="comment label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bli-df-Nxu">
+                                                    <rect key="frame" x="65" y="37" width="247" height="15"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2h" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Ji-iQ-Xfq">
+                                                    <rect key="frame" x="270" y="8" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="commentTxt" destination="uxY-GH-8Za" id="uTY-ts-46a"/>
+                        <outlet property="sendBtn" destination="6Ws-rr-iHS" id="A83-zS-jT6"/>
+                        <outlet property="tableView" destination="Rrd-W5-HR2" id="SVz-rb-TYH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eSS-eM-fGb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3567" y="-412"/>
+        </scene>
         <!--FollowersVC-->
         <scene sceneID="Hrr-cg-wO3">
             <objects>
@@ -554,10 +635,10 @@
             </objects>
             <point key="canvasLocation" x="2719" y="231"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--TabbarVC-->
         <scene sceneID="OAl-Tn-62Z">
             <objects>
-                <tabBarController storyboardIdentifier="tabBar" id="pLN-nF-iab" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBar" id="pLN-nF-iab" customClass="tabbarVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="aW0-wg-kXV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -800,11 +881,11 @@
             </objects>
             <point key="canvasLocation" x="972" y="232"/>
         </scene>
-        <!--Item-->
+        <!--NavVC-->
         <scene sceneID="QAl-hU-GUd">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XLg-Va-iMF" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="M5s-7u-ez8"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XLg-Va-iMF" customClass="navVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="social" id="M5s-7u-ez8"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qJ3-8X-Kfq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -901,10 +982,10 @@
             </objects>
             <point key="canvasLocation" x="2280" y="947"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--NavVC-->
         <scene sceneID="Dxz-2o-mAb">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XDN-Bz-24w" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XDN-Bz-24w" customClass="navVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="z4g-c4-1EJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -919,11 +1000,11 @@
             </objects>
             <point key="canvasLocation" x="2280" y="-412"/>
         </scene>
-        <!--Item-->
+        <!--NavVC-->
         <scene sceneID="6fn-xl-lgT">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3QT-dQ-a7k" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="sPT-KZ-9Ed"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3QT-dQ-a7k" customClass="navVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="photo-camera" id="sPT-KZ-9Ed"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LqV-Tj-J88">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -941,6 +1022,11 @@
     </scenes>
     <resources>
         <image name="avatar_placeholder" width="240" height="240"/>
+        <image name="comment.png" width="795" height="765"/>
         <image name="grey" width="200" height="200"/>
+        <image name="more.png" width="795" height="765"/>
+        <image name="photo-camera" width="16" height="16"/>
+        <image name="social" width="16" height="16"/>
+        <image name="unlike.png" width="738" height="690"/>
     </resources>
 </document>

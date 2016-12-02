@@ -11,6 +11,7 @@ import Parse
 
 var postuuid = [String]()
 
+
 class postVC: UITableViewController {
     
     
@@ -39,9 +40,11 @@ class postVC: UITableViewController {
         backSwipe.direction = UISwipeGestureRecognizerDirection.Right
         self.view.addGestureRecognizer(backSwipe)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refresh", name: "liked", object: nil)
+        
         // dynamic cell hieght
-//        tableView.rowHeight = UITableViewAutomaticDimension
-//        tableView.estimatedRowHeight = 450
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 450
         
         // find posts
         let postQuery = PFQuery(className: "posts")
@@ -76,6 +79,12 @@ class postVC: UITableViewController {
         })
         
     }
+    
+    //auto refresh function
+    func refresh() {
+        
+        self.tableView.reloadData()
+    }
 
 
     
@@ -93,6 +102,7 @@ class postVC: UITableViewController {
         
         //connect objects with our information from arrays
         cell.usernameBtn.setTitle(usernameArray[indexPath.row], forState: UIControlState.Normal)
+        cell.usernameBtn.sizeToFit()
         cell.uuidLbl.text = uuidArray[indexPath.row]
         cell.titleLbl.text = titleArray[indexPath.row]
         cell.titleLbl.sizeToFit()
@@ -138,8 +148,78 @@ class postVC: UITableViewController {
             cell.dateLbl.text = "\(difference.weekOfMonth)w."
         }
         
+        //color like button accordingly
+        
+        let didLike = PFQuery(className: "likes")
+        didLike.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+        didLike.whereKey("to", equalTo: cell.uuidLbl!.text!)
+        didLike.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
+            if count == 0 {
+                cell.likeBtn.setTitle("unlike", forState: .Normal)
+                cell.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
+            } else {
+                cell.likeBtn.setTitle("like", forState: .Normal)
+                cell.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
+            }
+        }
+        
+        // count total likes
+        let countLikes = PFQuery(className: "likes")
+        countLikes.whereKey("to", equalTo: cell.uuidLbl.text!)
+        countLikes.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
+            cell.likeLbl.text = "\(count)"
+        }
+        
+        
+        cell.usernameBtn.layer.setValue(indexPath, forKey: "index")
+        cell.commentBtn.layer.setValue(indexPath, forKey: "index")
+        
         return cell
     }
+    
+    
+    // username button pressed
+    @IBAction func usernameBtn_click(sender: AnyObject) {
+        
+        let i = sender.layer.valueForKey("index") as! NSIndexPath
+        
+        //call cell to call further cell data
+        
+        let cell = tableView.cellForRowAtIndexPath(i) as! postCell
+        
+        if cell.usernameBtn.titleLabel?.text == PFUser.currentUser()?.username {
+        
+            // if user tapped on himself, go home else go guest
+            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
+            self.navigationController?.pushViewController(home, animated: true)
+        } else {
+            
+            guestname.append(cell.usernameBtn.titleLabel!.text!)
+            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+            self.navigationController?.pushViewController(guest, animated: true)
+        }
+        
+    }
+    
+    //clicked comment button
+    @IBAction func commentBtn_click(sender: AnyObject) {
+        
+        // call index of button
+        let i = sender.layer.valueForKey("index") as! NSIndexPath
+        
+        // call cell to call further cell data
+        
+        let cell = tableView.cellForRowAtIndexPath(i) as! postCell
+        
+        // send related data to global variables
+        commentuuid.append(cell.uuidLbl.text!)
+        commentowner.append(cell.usernameBtn.titleLabel!.text!)
+        
+        // go to comments. present vc
+        let comment = self.storyboard?.instantiateViewControllerWithIdentifier("commentVC") as! commentVC
+        self.navigationController?.pushViewController(comment, animated: true)
+    }
+    
     
     // go back function
     func back(sender: UIBarButtonItem) {
