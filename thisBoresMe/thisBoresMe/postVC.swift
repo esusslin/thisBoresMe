@@ -39,6 +39,8 @@ class postVC: UITableViewController {
         backSwipe.direction = UISwipeGestureRecognizerDirection.Right
         self.view.addGestureRecognizer(backSwipe)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refresh", name: "liked", object: nil)
+        
         // dynamic cell hieght
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 450
@@ -75,6 +77,12 @@ class postVC: UITableViewController {
             }
         })
         
+    }
+    
+    //auto refresh function
+    func refresh() {
+        
+        self.tableView.reloadData()
     }
 
 
@@ -137,6 +145,31 @@ class postVC: UITableViewController {
         if difference.weekOfMonth > 0 {
             cell.dateLbl.text = "\(difference.weekOfMonth)w."
         }
+        
+        //color like button accordingly
+        
+        let didLike = PFQuery(className: "likes")
+        didLike.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+        didLike.whereKey("to", equalTo: cell.uuidLbl!.text!)
+        didLike.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
+            if count == 0 {
+                cell.likeBtn.setTitle("unlike", forState: .Normal)
+                cell.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
+            } else {
+                cell.likeBtn.setTitle("like", forState: .Normal)
+                cell.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
+            }
+        }
+        
+        // count total likes
+        let countLikes = PFQuery(className: "likes")
+        countLikes.whereKey("to", equalTo: cell.uuidLbl.text!)
+        countLikes.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
+            cell.likeLbl.text = "\(count)"
+        }
+        
+        
+        
         
         print(cell.dateLbl.text)
         return cell

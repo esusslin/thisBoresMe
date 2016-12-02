@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class postCell: UITableViewCell {
     
@@ -31,6 +32,18 @@ class postCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
        
+        // clear like button title color
+        likeBtn.setTitleColor(UIColor.clearColor(), forState: .Normal)
+        
+        //double tap to like
+        
+        let likeTap = UITapGestureRecognizer(target: self, action: "likeTap")
+        likeTap.numberOfTapsRequired = 2
+        picImg.userInteractionEnabled = true
+        picImg.addGestureRecognizer(likeTap)
+        
+        
+        //alignment
         let width = UIScreen.mainScreen().bounds.width
         
         //allow constraints
@@ -90,5 +103,101 @@ class postCell: UITableViewCell {
         avatarImage.clipsToBounds = true
         
     }
+    
+    // double tap to like
+    func likeTap() {
+        
+        //create large gray heart
+        
+        let likePic = UIImageView(image: UIImage(named: "unlike.png"))
+        likePic.frame.size.width = picImg.frame.size.width / 1.5
+        likePic.frame.size.height = picImg.frame.size.width / 1.5
+        likePic.center = picImg.center
+        likePic.alpha = 0.8
+        self.addSubview(likePic)
+        
+        // hide likePic with animation and transform to be smaller
+        
+        UIView.animateWithDuration(0.4) { 
+            likePic.alpha = 0
+            likePic.transform = CGAffineTransformMakeScale(0.1, 0.1)
+        }
+        
+        // delcare title of button
+        
+        let title = likeBtn.titleForState(.Normal)
+        
+        if title == "unlike" {
+            
+            let object = PFObject(className: "likes")
+            object["by"] = PFUser.currentUser()?.username
+            object["to"] = uuidLbl.text
+            object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) in
+                
+                if success {
+                    print("liked")
+                    self.likeBtn.setTitle("like", forState: .Normal)
+                    self.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
+                    
+                    NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+                }
+            })
+            
+        }
+    }
+    
+    
+    // click like button
+    @IBAction func likeBtn_click(sender: AnyObject) {
+        
+        //declare title of button
+        let title = sender.titleForState(.Normal)
+        
+        // to like
+        if title == "unlike" {
+            
+            let object = PFObject(className: "likes")
+            object["by"] = PFUser.currentUser()?.username
+            object["to"] = uuidLbl.text
+            object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) in
+                
+                if success {
+                    print("liked")
+                    self.likeBtn.setTitle("like", forState: .Normal)
+                    self.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
+                    
+                    NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+                }
+            })
+        
+        // to dislike
+        } else {
+            
+            let query = PFQuery(className: "likes")
+            query.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+            query.whereKey("to", equalTo: uuidLbl.text!)
+            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) in
+                
+                // found objects - likes
+                for object in objects! {
+                    
+                    object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) in
+                        if success {
+                            print("disliked")
+                            self.likeBtn.setTitle("unlike", forState: .Normal)
+                            self.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
+                            
+                            //send notification if we liked to refresh TableView
+                            NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+                            
+                        }
+                    })
+                }
+                
+            })
+        }
+        
+    }
+    
 
 }

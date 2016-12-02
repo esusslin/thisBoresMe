@@ -294,14 +294,22 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="egi-ub-FKK">
-                                            <rect key="frame" x="10" y="354" width="10" height="10"/>
+                                            <rect key="frame" x="8" y="354" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Like" image="unlike.png"/>
+                                            <state key="normal" title="Like" backgroundImage="unlike.png"/>
+                                            <connections>
+                                                <action selector="likeBtn_click:" destination="UrV-T2-MeP" eventType="touchUpInside" id="sm7-OE-rlL"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lJL-Y8-iLg">
                                             <rect key="frame" x="107" y="354" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="comment" image="comment.png"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aUn-jK-4EJ">
+                                            <rect key="frame" x="280" y="354" width="30" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="more.png"/>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="M1c-Uk-4sG">
                                             <rect key="frame" x="64" y="354" width="22" height="30"/>
@@ -321,11 +329,6 @@
                                             <rect key="frame" x="10" y="46" width="300" height="300"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aUn-jK-4EJ">
-                                            <rect key="frame" x="280" y="354" width="30" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" image="more.png"/>
-                                        </button>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
@@ -797,11 +800,11 @@
             </objects>
             <point key="canvasLocation" x="972" y="232"/>
         </scene>
-        <!--Item-->
+        <!--NavVC-->
         <scene sceneID="QAl-hU-GUd">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XLg-Va-iMF" customClass="navVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="M5s-7u-ez8"/>
+                    <tabBarItem key="tabBarItem" title="" image="social" id="M5s-7u-ez8"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qJ3-8X-Kfq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -916,11 +919,11 @@
             </objects>
             <point key="canvasLocation" x="2280" y="-412"/>
         </scene>
-        <!--Item-->
+        <!--NavVC-->
         <scene sceneID="6fn-xl-lgT">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3QT-dQ-a7k" customClass="navVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="sPT-KZ-9Ed"/>
+                    <tabBarItem key="tabBarItem" title="" image="photo-camera" id="sPT-KZ-9Ed"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LqV-Tj-J88">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -941,6 +944,8 @@
         <image name="comment.png" width="795" height="765"/>
         <image name="grey" width="200" height="200"/>
         <image name="more.png" width="795" height="765"/>
+        <image name="photo-camera" width="16" height="16"/>
+        <image name="social" width="16" height="16"/>
         <image name="unlike.png" width="738" height="690"/>
     </resources>
 </document>
