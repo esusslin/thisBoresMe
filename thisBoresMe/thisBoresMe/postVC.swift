@@ -11,6 +11,7 @@ import Parse
 
 var postuuid = [String]()
 
+
 class postVC: UITableViewController {
     
     
@@ -171,8 +172,8 @@ class postVC: UITableViewController {
         
         
         cell.usernameBtn.layer.setValue(indexPath, forKey: "index")
+        cell.commentBtn.layer.setValue(indexPath, forKey: "index")
         
-        print(cell.dateLbl.text)
         return cell
     }
     
@@ -200,6 +201,24 @@ class postVC: UITableViewController {
         
     }
     
+    //clicked comment button
+    @IBAction func commentBtn_click(sender: AnyObject) {
+        
+        // call index of button
+        let i = sender.layer.valueForKey("index") as! NSIndexPath
+        
+        // call cell to call further cell data
+        
+        let cell = tableView.cellForRowAtIndexPath(i) as! postCell
+        
+        // send related data to global variables
+        commentuuid.append(cell.uuidLbl.text!)
+        commentowner.append(cell.usernameBtn.titleLabel!.text!)
+        
+        // go to comments. present vc
+        let comment = self.storyboard?.instantiateViewControllerWithIdentifier("commentVC") as! commentVC
+        self.navigationController?.pushViewController(comment, animated: true)
+    }
     
     
     // go back function
