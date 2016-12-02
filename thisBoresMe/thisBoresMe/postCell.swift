@@ -59,13 +59,13 @@ class postCell: UITableViewCell {
         
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[username]", options: [], metrics: nil, views: ["username":usernameBtn]))
         
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[pic]-10-[comment]", options: [], metrics: nil, views: ["pic":picImg, "comment":commentBtn]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[pic]-5-[comment(35)]", options: [], metrics: nil, views: ["pic":picImg, "comment":commentBtn]))
         
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[date]", options: [], metrics: nil, views: ["date":dateLbl]))
         
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[like]-5-[title]-5-|", options: [], metrics: nil, views: ["like":likeBtn, "title":titleLbl]))
         
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[pic]-5-[more]", options: [], metrics: nil, views: ["pic":picImg, "more":moreBtn]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[pic]-5-[more(30)]", options: [], metrics: nil, views: ["pic":picImg, "more":moreBtn]))
         
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[pic]-10-[likes]", options: [], metrics: nil, views: ["pic":picImg, "likes":likeLbl]))
         
@@ -76,9 +76,9 @@ class postCell: UITableViewCell {
         
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[pic]-10-|", options: [], metrics: nil, views: ["pic":picImg]))
         
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-15-[like(30)]-10-[likes]-20-[comment]", options: [], metrics: nil, views: ["like":likeBtn, "likes":likeLbl, "comment":commentBtn]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-15-[like(30)]-10-[likes]-20-[comment(35)]", options: [], metrics: nil, views: ["like":likeBtn, "likes":likeLbl, "comment":commentBtn]))
         
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[more]-15-|", options: [], metrics: nil, views: ["more":moreBtn]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[more(30)]-15-|", options: [], metrics: nil, views: ["more":moreBtn]))
         
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-15-[title]-15-|", options: [], metrics: nil, views: ["title":titleLbl]))
         

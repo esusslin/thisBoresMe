@@ -293,23 +293,15 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="egi-ub-FKK">
-                                            <rect key="frame" x="10" y="354" width="46" height="30"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="egi-ub-FKK">
+                                            <rect key="frame" x="10" y="354" width="10" height="10"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <state key="normal" title="Like"/>
+                                            <state key="normal" title="Like" image="unlike.png"/>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lJL-Y8-iLg">
-                                            <rect key="frame" x="127" y="354" width="67" height="30"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lJL-Y8-iLg">
+                                            <rect key="frame" x="107" y="354" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <state key="normal" title="comment"/>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aUn-jK-4EJ">
-                                            <rect key="frame" x="264" y="354" width="46" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <state key="normal" title="more"/>
+                                            <state key="normal" title="comment" image="comment.png"/>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="M1c-Uk-4sG">
                                             <rect key="frame" x="64" y="354" width="22" height="30"/>
@@ -329,6 +321,11 @@
                                             <rect key="frame" x="10" y="46" width="300" height="300"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aUn-jK-4EJ">
+                                            <rect key="frame" x="280" y="354" width="30" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="more.png"/>
+                                        </button>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
@@ -941,6 +938,9 @@
     </scenes>
     <resources>
         <image name="avatar_placeholder" width="240" height="240"/>
+        <image name="comment.png" width="795" height="765"/>
         <image name="grey" width="200" height="200"/>
+        <image name="more.png" width="795" height="765"/>
+        <image name="unlike.png" width="738" height="690"/>
     </resources>
 </document>

@@ -153,7 +153,7 @@ class guestVC: UICollectionViewController {
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return picArray.count * 20
+        return picArray.count
     }
     
     //cell size
@@ -172,7 +172,7 @@ class guestVC: UICollectionViewController {
         
         // connect data from array to picIMg object from pictureCell class
         
-        picArray[0].getDataInBackgroundWithBlock ({ (data:NSData?, error:NSError?) in
+        picArray[indexPath.row].getDataInBackgroundWithBlock ({ (data:NSData?, error:NSError?) in
             
             if error == nil {
                 cell.picImg.image = UIImage(data: data!)
@@ -324,4 +324,18 @@ class guestVC: UICollectionViewController {
         
         self.navigationController?.pushViewController(followings, animated: true)
     }
+    
+    // go post
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
+        //send post uuid to "postuuid" variable
+        postuuid.append(uuidArray[indexPath.row])
+        
+        //navigate to post view controller
+        let post = self.storyboard?.instantiateViewControllerWithIdentifier("postVC") as! postVC
+        self.navigationController?.pushViewController(post, animated: true)
+    }
+    
+    
+    
 }
