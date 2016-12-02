@@ -169,11 +169,36 @@ class postVC: UITableViewController {
         }
         
         
-        
+        cell.usernameBtn.layer.setValue(indexPath, forKey: "index")
         
         print(cell.dateLbl.text)
         return cell
     }
+    
+    
+    // username button pressed
+    @IBAction func usernameBtn_click(sender: AnyObject) {
+        
+        let i = sender.layer.valueForKey("index") as! NSIndexPath
+        
+        //call cell to call further cell data
+        
+        let cell = tableView.cellForRowAtIndexPath(i) as! postCell
+        
+        if cell.usernameBtn.titleLabel?.text == PFUser.currentUser()?.username {
+            
+            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
+            self.navigationController?.pushViewController(home, animated: true)
+        } else {
+            
+            guestname.append(cell.usernameBtn.titleLabel!.text!)
+            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+            self.navigationController?.pushViewController(guest, animated: true)
+        }
+        
+    }
+    
+    
     
     // go back function
     func back(sender: UIBarButtonItem) {

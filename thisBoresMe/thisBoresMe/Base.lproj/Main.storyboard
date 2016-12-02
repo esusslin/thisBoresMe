@@ -285,6 +285,9 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <state key="normal" title="usernameBtn"/>
+                                            <connections>
+                                                <action selector="usernameBtn_click:" destination="NfJ-C4-DYE" eventType="touchUpInside" id="4Du-nG-gZT"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2h" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Z6y-mW-cpq">
                                             <rect key="frame" x="235" y="8" width="75" height="30"/>
