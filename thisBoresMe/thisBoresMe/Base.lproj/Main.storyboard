@@ -551,10 +551,10 @@
             </objects>
             <point key="canvasLocation" x="2719" y="231"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--TabbarVC-->
         <scene sceneID="OAl-Tn-62Z">
             <objects>
-                <tabBarController storyboardIdentifier="tabBar" id="pLN-nF-iab" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBar" id="pLN-nF-iab" customClass="tabbarVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="aW0-wg-kXV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -800,7 +800,7 @@
         <!--Item-->
         <scene sceneID="QAl-hU-GUd">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XLg-Va-iMF" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XLg-Va-iMF" customClass="navVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="M5s-7u-ez8"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qJ3-8X-Kfq">
@@ -898,10 +898,10 @@
             </objects>
             <point key="canvasLocation" x="2280" y="947"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--NavVC-->
         <scene sceneID="Dxz-2o-mAb">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XDN-Bz-24w" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XDN-Bz-24w" customClass="navVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="z4g-c4-1EJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -919,7 +919,7 @@
         <!--Item-->
         <scene sceneID="6fn-xl-lgT">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3QT-dQ-a7k" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3QT-dQ-a7k" customClass="navVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="sPT-KZ-9Ed"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LqV-Tj-J88">
