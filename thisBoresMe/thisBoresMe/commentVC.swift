@@ -18,7 +18,7 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var commentTxt: UITextView!
     @IBOutlet weak var sendBtn: UIButton!
-    var refresh = UIRefreshControl()
+    var refresher = UIRefreshControl()
     
     //arrays to hold data from server
     
@@ -37,6 +37,9 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
     //variable to hold keyboard frame
     
     var keyboard = CGRect()
+    
+    // page size
+    var page : Int32 = 15
     
     
     override func viewDidLoad() {
@@ -190,6 +193,110 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
             }
         }
     }
+    
+    // load comments function
+    func loadComments() {
+        
+        // STEP 1. Count total comments in order to skip all except (page size = 15)
+        let countQuery = PFQuery(className: "comments")
+        countQuery.whereKey("to", equalTo: commentuuid.last!)
+        countQuery.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) -> Void in
+            
+            // if comments on the server for current post are more than (page size 15), implement pull to refresh func
+            if self.page < count {
+                self.refresher.addTarget(self, action: #selector(commentVC.loadMore), forControlEvents: UIControlEvents.ValueChanged)
+                self.tableView.addSubview(self.refresher)
+            }
+            
+            // STEP 2. Request last (page size 15) comments
+            let query = PFQuery(className: "comments")
+            query.whereKey("to", equalTo: commentuuid.last!)
+            query.skip = count - self.page
+            query.addAscendingOrder("createdAt")
+            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, erro:NSError?) -> Void in
+                if error == nil {
+                    
+                    // clean up
+                    self.usernameArray.removeAll(keepCapacity: false)
+                    self.avaArray.removeAll(keepCapacity: false)
+                    self.commentArray.removeAll(keepCapacity: false)
+                    self.dateArray.removeAll(keepCapacity: false)
+                    
+                    // find related objects
+                    for object in objects! {
+                        self.usernameArray.append(object.objectForKey("username") as! String)
+                        self.avaArray.append(object.objectForKey("ava") as! PFFile)
+                        self.commentArray.append(object.objectForKey("comment") as! String)
+                        self.dateArray.append(object.createdAt)
+                        self.tableView.reloadData()
+                        
+                        // scroll to bottom
+                        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.commentArray.count - 1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
+                    }
+                } else {
+                    print(error?.localizedDescription)
+                }
+            })
+        })
+        
+    }
+    
+    // pagination
+    func loadMore() {
+        
+        // STEP 1. Count total comments in order to skip all except (page size = 15)
+        let countQuery = PFQuery(className: "comments")
+        countQuery.whereKey("to", equalTo: commentuuid.last!)
+        countQuery.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) -> Void in
+            
+            // self refresher
+            self.refresher.endRefreshing()
+            
+            // remove refresher if loaded all comments
+            if self.page >= count {
+                self.refresher.removeFromSuperview()
+            }
+            
+            // STEP 2. Load more comments
+            if self.page < count {
+                
+                // increase page to load 30 as first paging
+                self.page = self.page + 15
+                
+                // request existing comments from the server
+                let query = PFQuery(className: "comments")
+                query.whereKey("to", equalTo: commentuuid.last!)
+                query.skip = count - self.page
+                query.addAscendingOrder("createdAt")
+                query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+                    if error == nil {
+                        
+                        // clean up
+                        self.usernameArray.removeAll(keepCapacity: false)
+                        self.avaArray.removeAll(keepCapacity: false)
+                        self.commentArray.removeAll(keepCapacity: false)
+                        self.dateArray.removeAll(keepCapacity: false)
+                        
+                        // find related objects
+                        for object in objects! {
+                            self.usernameArray.append(object.objectForKey("username") as! String)
+                            self.avaArray.append(object.objectForKey("ava") as! PFFile)
+                            self.commentArray.append(object.objectForKey("comment") as! String)
+                            self.dateArray.append(object.createdAt)
+                            self.tableView.reloadData()
+                        }
+                    } else {
+                        print(error?.localizedDescription)
+                    }
+                })
+            }
+            
+        })
+        
+    }
+
+    
+    
     
     // TABLEVIEW
     // cell numb
