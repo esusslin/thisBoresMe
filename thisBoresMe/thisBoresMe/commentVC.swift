@@ -45,7 +45,7 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.backgroundColor = UIColor.redColor()
+        
         
         //title at the top
         self.navigationItem.title = "COMMENTS"
@@ -75,6 +75,7 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
         sendBtn.enabled = false
 
         alignment()
+        loadComments()
     }
     
     func hideKeyboardTap(recognizer: UITapGestureRecognizer) {
@@ -197,6 +198,8 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
     
     // load comments function
     func loadComments() {
+        
+        
         
         // STEP 1. Count total comments in order to skip all except (page size = 15)
         let countQuery = PFQuery(className: "comments")
@@ -455,10 +458,156 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
             cell.dateLbl.text = "\(difference.weekOfMonth)w."
         }
         
+        // @mention is tapped
+        cell.commentLbl.userHandleLinkTapHandler = { label, handle, rang in
+            var mention = handle
+            mention = String(mention.characters.dropFirst())
+            
+            // if tapped on @currentUser go home, else go guest
+            if mention.lowercaseString == PFUser.currentUser()?.username {
+                let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
+                print("home")
+                self.navigationController?.pushViewController(home, animated: true)
+            } else {
+                guestname.append(mention.lowercaseString)
+                let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+                print("guest")
+                self.navigationController?.pushViewController(guest, animated: true)
+            }
+        }
+        
+        
+        
         cell.usernameBtn.layer.setValue(indexPath, forKey: "index")
         
         return cell
     }
+    
+    
+    // cell editabily
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    
+    // swipe cell for actions
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        
+        // call cell for calling further cell data
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! commentCell
+        
+        // ACTION 1. Delete
+        let delete = UITableViewRowAction(style: .Normal, title: "1") { (action:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            
+            // STEP 1. Delete comment from server
+            let commentQuery = PFQuery(className: "comments")
+            commentQuery.whereKey("to", equalTo: commentuuid.last!)
+            commentQuery.whereKey("comment", equalTo: cell.commentLbl.text!)
+            commentQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
+                if error == nil {
+                    // find related objects
+                    for object in objects! {
+                        object.deleteEventually()
+                    }
+                } else {
+                    print(error!.localizedDescription)
+                }
+            })
+            
+//            // STEP 2. Delete #hashtag from server
+//            let hashtagQuery = PFQuery(className: "hashtags")
+//            hashtagQuery.whereKey("to", equalTo: commentuuid.last!)
+//            hashtagQuery.whereKey("by", equalTo: cell.usernameBtn.titleLabel!.text!)
+//            hashtagQuery.whereKey("comment", equalTo: cell.commentLbl.text!)
+//            hashtagQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+//                for object in objects! {
+//                    object.deleteEventually()
+//                }
+//            })
+//            
+//            // STEP 3. Delete notification: mention comment
+//            let newsQuery = PFQuery(className: "news")
+//            newsQuery.whereKey("by", equalTo: cell.usernameBtn.titleLabel!.text!)
+//            newsQuery.whereKey("to", equalTo: commentowner.last!)
+//            newsQuery.whereKey("uuid", equalTo: commentuuid.last!)
+//            newsQuery.whereKey("type", containedIn: ["comment", "mention"])
+//            newsQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+//                if error == nil {
+//                    for object in objects! {
+//                        object.deleteEventually()
+//                    }
+//                }
+//            })
+//            
+//            
+            // close cell
+            tableView.setEditing(false, animated: true)
+            
+            // STEP 3. Delete comment row from tableView
+            self.commentArray.removeAtIndex(indexPath.row)
+            self.dateArray.removeAtIndex(indexPath.row)
+            self.usernameArray.removeAtIndex(indexPath.row)
+            self.avaArray.removeAtIndex(indexPath.row)
+            
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        }
+        
+        // ACTION 2. Mention or address message to someone
+        let address = UITableViewRowAction(style: .Normal, title: "2") { (action:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            
+            // include username in textView
+            self.commentTxt.text = "\(self.commentTxt.text + "@" + self.usernameArray[indexPath.row] + " ")"
+            
+            // enable button
+            self.sendBtn.enabled = true
+            
+            // close cell
+            tableView.setEditing(false, animated: true)
+        }
+        
+        // ACTION 3. Complain
+        let complain = UITableViewRowAction(style: .Normal, title: "3") { (action:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            
+            // send complain to server regarding selected comment
+            let complainObj = PFObject(className: "complain")
+            complainObj["by"] = PFUser.currentUser()?.username
+            complainObj["to"] = cell.commentLbl.text
+            complainObj["owner"] = cell.usernameBtn.titleLabel?.text
+            complainObj.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+                if success {
+                    
+                   self.alert("Complain has been made successfully", message: "Thank You! We will consider your complaint")
+                } else {
+                 self.alert("ERROR", message: error!.localizedDescription)
+                }
+            })
+            
+            // close cell
+            tableView.setEditing(false, animated: true)
+        }
+        
+        // buttons background
+        delete.backgroundColor = UIColor.redColor()
+        address.backgroundColor = UIColor.grayColor()
+        complain.backgroundColor = UIColor.grayColor()
+        
+        // comment beloogs to user
+        if cell.usernameBtn.titleLabel?.text == PFUser.currentUser()?.username {
+            return [delete, address]
+        }
+            
+            // post belongs to user
+        else if commentowner.last == PFUser.currentUser()?.username {
+            return [delete, address, complain]
+        }
+            
+            // post belongs to another user
+        else  {
+            return [address, complain]
+        }
+        
+    }
+
     
     //clicked username button
     @IBAction func usernameBtn_click(sender: AnyObject) {
@@ -482,6 +631,15 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
         
         
     }
+    
+    // alert action
+    func alert (title: String, message : String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        let ok = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+        alert.addAction(ok)
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
     
     
         // go back
