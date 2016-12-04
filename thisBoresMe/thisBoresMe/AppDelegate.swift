@@ -35,6 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // call login function
         login()
         
+        // color of window
+        window?.backgroundColor = UIColor.whiteColor()
+        
         return true
     }
 
