@@ -547,6 +547,9 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <state key="normal" title="username"/>
+                                                    <connections>
+                                                        <action selector="usernameBtn_click:" destination="zyn-Ue-26p" eventType="touchUpInside" id="9ac-sQ-KTu"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="comment label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bli-df-Nxu">
                                                     <rect key="frame" x="65" y="37" width="247" height="15"/>

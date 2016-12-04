@@ -305,15 +305,26 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
         dateArray.append(NSDate())
         commentArray.append(commentTxt.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()))
         tableView.reloadData()
-//        
-//        // STEP 2. Send comment to server
-//        let commentObj = PFObject(className: "comments")
-//        commentObj["to"] = commentuuid.last
-//        commentObj["username"] = PFUser.currentUser()?.username
-//        commentObj["ava"] = PFUser.currentUser()?.valueForKey("ava")
-//        commentObj["comment"] = commentTxt.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-//        commentObj.saveEventually()
-//        
+        
+        
+        // STEP 2. Send comment to server
+        let commentObj = PFObject(className: "comments")
+        commentObj["to"] = commentuuid.last
+        commentObj["username"] = PFUser.currentUser()?.username
+        commentObj["ava"] = PFUser.currentUser()?.valueForKey("ava")
+        commentObj["comment"] = commentTxt.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        commentObj.saveEventually()
+        
+        // scroll to bottom
+        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forItem: commentArray.count - 1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
+        
+        //Step 3: reset UI
+        
+        commentTxt.text = ""
+        commentTxt.frame.size.height = commentHeight
+        commentTxt.frame.origin.y = sendBtn.frame.origin.y
+        commentTxt.frame.size.height = self.tableViewHeight - self.keyboard.height - self.commentTxt.frame.size.height + self.commentHeight
+//
 //        // STEP 3. Send #hashtag to server
 //        let words:[String] = commentTxt.text!.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 //        
@@ -444,8 +455,34 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
             cell.dateLbl.text = "\(difference.weekOfMonth)w."
         }
         
+        cell.usernameBtn.layer.setValue(indexPath, forKey: "index")
+        
         return cell
     }
+    
+    //clicked username button
+    @IBAction func usernameBtn_click(sender: AnyObject) {
+        
+        // call index of current button
+        let i = sender.layer.valueForKey("index") as! NSIndexPath
+        
+        // call cell to call further cell data
+        let cell = tableView.cellForRowAtIndexPath(i) as! commentCell
+        
+        // if user tapped on his username go home, else go guest
+        if cell.usernameBtn.titleLabel?.text == PFUser.currentUser()?.username {
+            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
+            self.navigationController?.pushViewController(home, animated: true)
+        } else {
+            guestname.append(cell.usernameBtn.titleLabel!.text!)
+            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+            self.navigationController?.pushViewController(guest, animated: true)
+        }
+
+        
+        
+    }
+    
     
         // go back
         func back(sender : UIBarButtonItem) {
