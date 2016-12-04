@@ -161,8 +161,9 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
         
         let spacing = NSCharacterSet.whitespaceAndNewlineCharacterSet()
         
-        if commentTxt.text.stringByTrimmingCharactersInSet(spacing).isEmpty {
+        if !commentTxt.text.stringByTrimmingCharactersInSet(spacing).isEmpty {
             sendBtn.enabled = true
+            print("ftw")
         } else {
             sendBtn.enabled = false
         }
@@ -296,6 +297,102 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
     }
 
     
+    @IBAction func sendBtn_click(sender: AnyObject) {
+        
+        // STEP 1. Add row in tableView
+        usernameArray.append(PFUser.currentUser()!.username!)
+        avaArray.append(PFUser.currentUser()?.objectForKey("ava") as! PFFile)
+        dateArray.append(NSDate())
+        commentArray.append(commentTxt.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()))
+        tableView.reloadData()
+//        
+//        // STEP 2. Send comment to server
+//        let commentObj = PFObject(className: "comments")
+//        commentObj["to"] = commentuuid.last
+//        commentObj["username"] = PFUser.currentUser()?.username
+//        commentObj["ava"] = PFUser.currentUser()?.valueForKey("ava")
+//        commentObj["comment"] = commentTxt.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+//        commentObj.saveEventually()
+//        
+//        // STEP 3. Send #hashtag to server
+//        let words:[String] = commentTxt.text!.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+//        
+//        // define taged word
+//        for var word in words {
+//            
+//            // save #hasthag in server
+//            if word.hasPrefix("#") {
+//                
+//                // cut symbold
+//                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
+//                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.symbolCharacterSet())
+//                
+//                let hashtagObj = PFObject(className: "hashtags")
+//                hashtagObj["to"] = commentuuid.last
+//                hashtagObj["by"] = PFUser.currentUser()?.username
+//                hashtagObj["hashtag"] = word.lowercaseString
+//                hashtagObj["comment"] = commentTxt.text
+//                hashtagObj.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+//                    if success {
+//                        print("hashtag \(word) is created")
+//                    } else {
+//                        print(error!.localizedDescription)
+//                    }
+//                })
+//            }
+//        }
+//        
+//        
+//        // STEP 4. Send notification as @mention
+//        var mentionCreated = Bool()
+//        
+//        for var word in words {
+//            
+//            // check @mentions for user
+//            if word.hasPrefix("@") {
+//                
+//                // cut symbols
+//                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
+//                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.symbolCharacterSet())
+//                
+//                let newsObj = PFObject(className: "news")
+//                newsObj["by"] = PFUser.currentUser()?.username
+//                newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
+//                newsObj["to"] = word
+//                newsObj["owner"] = commentowner.last
+//                newsObj["uuid"] = commentuuid.last
+//                newsObj["type"] = "mention"
+//                newsObj["checked"] = "no"
+//                newsObj.saveEventually()
+//                mentionCreated = true
+//            }
+//        }
+//        
+//        // STEP 5. Send notification as comment
+//        if commentowner.last != PFUser.currentUser()?.username && mentionCreated == false {
+//            let newsObj = PFObject(className: "news")
+//            newsObj["by"] = PFUser.currentUser()?.username
+//            newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
+//            newsObj["to"] = commentowner.last
+//            newsObj["owner"] = commentowner.last
+//            newsObj["uuid"] = commentuuid.last
+//            newsObj["type"] = "comment"
+//            newsObj["checked"] = "no"
+//            newsObj.saveEventually()
+//        }
+//        
+//        
+//        // scroll to bottom
+//        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forItem: commentArray.count - 1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
+//        
+//        // STAEP 6. Reset UI
+//        sendBtn.enabled = false
+//        commentTxt.text = ""
+//        commentTxt.frame.size.height = commentHeight
+//        commentTxt.frame.origin.y = sendBtn.frame.origin.y
+//        tableView.frame.size.height = self.tableViewHeight - self.keyboard.height - self.commentTxt.frame.size.height + self.commentHeight
+
+    }
     
     
     // TABLEVIEW

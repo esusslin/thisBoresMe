@@ -522,6 +522,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="send"/>
+                                <connections>
+                                    <action selector="sendBtn_click:" destination="zyn-Ue-26p" eventType="touchUpInside" id="7HR-Xx-9Kp"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" id="Rrd-W5-HR2">
                                 <rect key="frame" x="-6" y="0.0" width="320" height="518"/>
