@@ -168,6 +168,9 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         object["ava"] = PFUser.currentUser()!.valueForKey("ava") as! PFFile
         object["uuid"] = "\(PFUser.currentUser()!.username) \(NSUUID().UUIDString)"
         
+        let uuid = NSUUID().UUIDString
+        object["uuid"] = "\(PFUser.currentUser()!.username) \(uuid)"
+        
         if titleTxt.text.isEmpty {
             object["title"] = ""
             
@@ -179,6 +182,34 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         let imageData = UIImageJPEGRepresentation(picImg.image!, 0.5)
         let imageFile = PFFile(name: "post.jpg", data: imageData!)
         object["pic"] = imageFile
+        
+        //save any hashtags
+        let words:[String] = titleTxt.text!.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        
+        // define taged word
+        for var word in words {
+            
+            // save #hasthag in server
+            if word.hasPrefix("#") {
+                
+                // cut symbold
+                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
+                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.symbolCharacterSet())
+                
+                let hashtagObj = PFObject(className: "hashtags")
+                hashtagObj["to"] = uuid
+                hashtagObj["by"] = PFUser.currentUser()?.username
+                hashtagObj["hashtag"] = word.lowercaseString
+                hashtagObj["comment"] = titleTxt.text
+                hashtagObj.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+                    if success {
+                        print("hashtag \(word) is created")
+                    } else {
+                        print(error!.localizedDescription)
+                    }
+                })
+            }
+        }
         
         //save post to server and return to homepage
         object.saveInBackgroundWithBlock ({ (success:Bool, error:NSError?) in

@@ -321,42 +321,42 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
         // scroll to bottom
         self.tableView.scrollToRowAtIndexPath(NSIndexPath(forItem: commentArray.count - 1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
         
-        //Step 3: reset UI
+//        //Step 3: reset UI
+//        
+//        commentTxt.text = ""
+//        commentTxt.frame.size.height = commentHeight
+//        commentTxt.frame.origin.y = sendBtn.frame.origin.y
+//        commentTxt.frame.size.height = self.tableViewHeight - self.keyboard.height - self.commentTxt.frame.size.height + self.commentHeight
+
+        // STEP 3. Send #hashtag to server
+        let words:[String] = commentTxt.text!.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         
-        commentTxt.text = ""
-        commentTxt.frame.size.height = commentHeight
-        commentTxt.frame.origin.y = sendBtn.frame.origin.y
-        commentTxt.frame.size.height = self.tableViewHeight - self.keyboard.height - self.commentTxt.frame.size.height + self.commentHeight
+        // define taged word
+        for var word in words {
+            
+            // save #hasthag in server
+            if word.hasPrefix("#") {
+                
+                // cut symbold
+                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
+                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.symbolCharacterSet())
+                
+                let hashtagObj = PFObject(className: "hashtags")
+                hashtagObj["to"] = commentuuid.last
+                hashtagObj["by"] = PFUser.currentUser()?.username
+                hashtagObj["hashtag"] = word.lowercaseString
+                hashtagObj["comment"] = commentTxt.text
+                hashtagObj.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+                    if success {
+                        print("hashtag \(word) is created")
+                    } else {
+                        print(error!.localizedDescription)
+                    }
+                })
+            }
+        }
+        
 //
-//        // STEP 3. Send #hashtag to server
-//        let words:[String] = commentTxt.text!.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-//        
-//        // define taged word
-//        for var word in words {
-//            
-//            // save #hasthag in server
-//            if word.hasPrefix("#") {
-//                
-//                // cut symbold
-//                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
-//                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.symbolCharacterSet())
-//                
-//                let hashtagObj = PFObject(className: "hashtags")
-//                hashtagObj["to"] = commentuuid.last
-//                hashtagObj["by"] = PFUser.currentUser()?.username
-//                hashtagObj["hashtag"] = word.lowercaseString
-//                hashtagObj["comment"] = commentTxt.text
-//                hashtagObj.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-//                    if success {
-//                        print("hashtag \(word) is created")
-//                    } else {
-//                        print(error!.localizedDescription)
-//                    }
-//                })
-//            }
-//        }
-//        
-//        
 //        // STEP 4. Send notification as @mention
 //        var mentionCreated = Bool()
 //        
@@ -396,15 +396,15 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
 //        }
 //        
 //        
-//        // scroll to bottom
-//        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forItem: commentArray.count - 1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
-//        
-//        // STAEP 6. Reset UI
-//        sendBtn.enabled = false
-//        commentTxt.text = ""
-//        commentTxt.frame.size.height = commentHeight
-//        commentTxt.frame.origin.y = sendBtn.frame.origin.y
-//        tableView.frame.size.height = self.tableViewHeight - self.keyboard.height - self.commentTxt.frame.size.height + self.commentHeight
+        // scroll to bottom
+        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forItem: commentArray.count - 1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
+       
+        // STAEP 6. Reset UI
+        sendBtn.enabled = false
+        commentTxt.text = ""
+        commentTxt.frame.size.height = commentHeight
+        commentTxt.frame.origin.y = sendBtn.frame.origin.y
+        tableView.frame.size.height = self.tableViewHeight - self.keyboard.height - self.commentTxt.frame.size.height + self.commentHeight
 
     }
     
@@ -514,17 +514,17 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
                 }
             })
             
-//            // STEP 2. Delete #hashtag from server
-//            let hashtagQuery = PFQuery(className: "hashtags")
-//            hashtagQuery.whereKey("to", equalTo: commentuuid.last!)
-//            hashtagQuery.whereKey("by", equalTo: cell.usernameBtn.titleLabel!.text!)
-//            hashtagQuery.whereKey("comment", equalTo: cell.commentLbl.text!)
-//            hashtagQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-//                for object in objects! {
-//                    object.deleteEventually()
-//                }
-//            })
-//            
+            // STEP 2. Delete #hashtag from server
+            let hashtagQuery = PFQuery(className: "hashtags")
+            hashtagQuery.whereKey("to", equalTo: commentuuid.last!)
+            hashtagQuery.whereKey("by", equalTo: cell.usernameBtn.titleLabel!.text!)
+            hashtagQuery.whereKey("comment", equalTo: cell.commentLbl.text!)
+            hashtagQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+                for object in objects! {
+                    object.deleteEventually()
+                }
+            })
+
 //            // STEP 3. Delete notification: mention comment
 //            let newsQuery = PFQuery(className: "news")
 //            newsQuery.whereKey("by", equalTo: cell.usernameBtn.titleLabel!.text!)
