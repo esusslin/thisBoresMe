@@ -27,7 +27,7 @@ class postCell: UITableViewCell {
     
     //labels
     @IBOutlet weak var likeLbl: UILabel!
-    @IBOutlet weak var titleLbl: UILabel!
+    @IBOutlet weak var titleLbl: KILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -74,7 +74,7 @@ class postCell: UITableViewCell {
         
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[pic]-5-[comment(35)]", options: [], metrics: nil, views: ["pic":picImg, "comment":commentBtn]))
         
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[date]", options: [], metrics: nil, views: ["date":dateLbl]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[date]", options: [], metrics: nil, views: ["date":dateLbl]))
         
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[like]-5-[title]-5-|", options: [], metrics: nil, views: ["like":likeBtn, "title":titleLbl]))
         
@@ -85,7 +85,7 @@ class postCell: UITableViewCell {
         
         // HORIZONTAL CONSTRAINTS
         
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[ava(30)]-10-[username]-10-|", options: [], metrics: nil, views: ["ava":avatarImage, "username":usernameBtn]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[ava(30)]-10-[username]", options: [], metrics: nil, views: ["ava":avatarImage, "username":usernameBtn]))
         
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[pic]-10-|", options: [], metrics: nil, views: ["pic":picImg]))
         
