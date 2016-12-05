@@ -18,6 +18,7 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var commentTxt: UITextView!
     @IBOutlet weak var sendBtn: UIButton!
+    
     var refresher = UIRefreshControl()
     
     //arrays to hold data from server
@@ -164,7 +165,7 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
         
         if !commentTxt.text.stringByTrimmingCharactersInSet(spacing).isEmpty {
             sendBtn.enabled = true
-            print("ftw")
+           
         } else {
             sendBtn.enabled = false
         }
@@ -300,6 +301,7 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
     }
 
     
+
     @IBAction func sendBtn_click(sender: AnyObject) {
         
         // STEP 1. Add row in tableView
@@ -309,7 +311,6 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
         commentArray.append(commentTxt.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()))
         tableView.reloadData()
         
-        
         // STEP 2. Send comment to server
         let commentObj = PFObject(className: "comments")
         commentObj["to"] = commentuuid.last
@@ -318,16 +319,6 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
         commentObj["comment"] = commentTxt.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         commentObj.saveEventually()
         
-        // scroll to bottom
-        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forItem: commentArray.count - 1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
-        
-//        //Step 3: reset UI
-//        
-//        commentTxt.text = ""
-//        commentTxt.frame.size.height = commentHeight
-//        commentTxt.frame.origin.y = sendBtn.frame.origin.y
-//        commentTxt.frame.size.height = self.tableViewHeight - self.keyboard.height - self.commentTxt.frame.size.height + self.commentHeight
-
         // STEP 3. Send #hashtag to server
         let words:[String] = commentTxt.text!.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         
@@ -356,49 +347,49 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
             }
         }
         
-//
-//        // STEP 4. Send notification as @mention
-//        var mentionCreated = Bool()
-//        
-//        for var word in words {
-//            
-//            // check @mentions for user
-//            if word.hasPrefix("@") {
-//                
-//                // cut symbols
-//                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
-//                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.symbolCharacterSet())
-//                
-//                let newsObj = PFObject(className: "news")
-//                newsObj["by"] = PFUser.currentUser()?.username
-//                newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
-//                newsObj["to"] = word
-//                newsObj["owner"] = commentowner.last
-//                newsObj["uuid"] = commentuuid.last
-//                newsObj["type"] = "mention"
-//                newsObj["checked"] = "no"
-//                newsObj.saveEventually()
-//                mentionCreated = true
-//            }
-//        }
-//        
-//        // STEP 5. Send notification as comment
-//        if commentowner.last != PFUser.currentUser()?.username && mentionCreated == false {
-//            let newsObj = PFObject(className: "news")
-//            newsObj["by"] = PFUser.currentUser()?.username
-//            newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
-//            newsObj["to"] = commentowner.last
-//            newsObj["owner"] = commentowner.last
-//            newsObj["uuid"] = commentuuid.last
-//            newsObj["type"] = "comment"
-//            newsObj["checked"] = "no"
-//            newsObj.saveEventually()
-//        }
-//        
-//        
+        
+        // STEP 4. Send notification as @mention
+        var mentionCreated = Bool()
+        
+        for var word in words {
+            
+            // check @mentions for user
+            if word.hasPrefix("@") {
+                
+                // cut symbols
+                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
+                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.symbolCharacterSet())
+                
+                let newsObj = PFObject(className: "news")
+                newsObj["by"] = PFUser.currentUser()?.username
+                newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
+                newsObj["to"] = word
+                newsObj["owner"] = commentowner.last
+                newsObj["uuid"] = commentuuid.last
+                newsObj["type"] = "mention"
+                newsObj["checked"] = "no"
+                newsObj.saveEventually()
+                mentionCreated = true
+            }
+        }
+        
+        // STEP 5. Send notification as comment
+        if commentowner.last != PFUser.currentUser()?.username && mentionCreated == false {
+            let newsObj = PFObject(className: "news")
+            newsObj["by"] = PFUser.currentUser()?.username
+            newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
+            newsObj["to"] = commentowner.last
+            newsObj["owner"] = commentowner.last
+            newsObj["uuid"] = commentuuid.last
+            newsObj["type"] = "comment"
+            newsObj["checked"] = "no"
+            newsObj.saveEventually()
+        }
+        
+        
         // scroll to bottom
         self.tableView.scrollToRowAtIndexPath(NSIndexPath(forItem: commentArray.count - 1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
-       
+        
         // STAEP 6. Reset UI
         sendBtn.enabled = false
         commentTxt.text = ""
@@ -407,6 +398,7 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
         tableView.frame.size.height = self.tableViewHeight - self.keyboard.height - self.commentTxt.frame.size.height + self.commentHeight
 
     }
+
     
     
     // TABLEVIEW
@@ -466,22 +458,41 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
             // if tapped on @currentUser go home, else go guest
             if mention.lowercaseString == PFUser.currentUser()?.username {
                 let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
-                print("home")
                 self.navigationController?.pushViewController(home, animated: true)
             } else {
                 guestname.append(mention.lowercaseString)
                 let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
-                print("guest")
                 self.navigationController?.pushViewController(guest, animated: true)
             }
         }
-        
         
         
         cell.usernameBtn.layer.setValue(indexPath, forKey: "index")
         
         return cell
     }
+
+    
+    @IBAction func usernameBtn_click(sender: AnyObject) {
+        
+        print("lol?")
+        // call index of current button
+        let i = sender.layer.valueForKey("index") as! NSIndexPath
+        
+        // call cell to call further cell data
+        let cell = tableView.cellForRowAtIndexPath(i) as! commentCell
+        
+        // if user tapped on his username go home, else go guest
+        if cell.usernameBtn.titleLabel?.text == PFUser.currentUser()?.username {
+            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
+            self.navigationController?.pushViewController(home, animated: true)
+        } else {
+            guestname.append(cell.usernameBtn.titleLabel!.text!)
+            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+            self.navigationController?.pushViewController(guest, animated: true)
+        }
+    }
+
     
     
     // cell editabily
@@ -497,7 +508,7 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! commentCell
         
         // ACTION 1. Delete
-        let delete = UITableViewRowAction(style: .Normal, title: "1") { (action:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+        let delete = UITableViewRowAction(style: .Normal, title: "    ") { (action:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             
             // STEP 1. Delete comment from server
             let commentQuery = PFQuery(className: "comments")
@@ -524,22 +535,22 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
                     object.deleteEventually()
                 }
             })
-
-//            // STEP 3. Delete notification: mention comment
-//            let newsQuery = PFQuery(className: "news")
-//            newsQuery.whereKey("by", equalTo: cell.usernameBtn.titleLabel!.text!)
-//            newsQuery.whereKey("to", equalTo: commentowner.last!)
-//            newsQuery.whereKey("uuid", equalTo: commentuuid.last!)
-//            newsQuery.whereKey("type", containedIn: ["comment", "mention"])
-//            newsQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-//                if error == nil {
-//                    for object in objects! {
-//                        object.deleteEventually()
-//                    }
-//                }
-//            })
-//            
-//            
+            
+            // STEP 3. Delete notification: mention comment
+            let newsQuery = PFQuery(className: "news")
+            newsQuery.whereKey("by", equalTo: cell.usernameBtn.titleLabel!.text!)
+            newsQuery.whereKey("to", equalTo: commentowner.last!)
+            newsQuery.whereKey("uuid", equalTo: commentuuid.last!)
+            newsQuery.whereKey("type", containedIn: ["comment", "mention"])
+            newsQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+                if error == nil {
+                    for object in objects! {
+                        object.deleteEventually()
+                    }
+                }
+            })
+            
+            
             // close cell
             tableView.setEditing(false, animated: true)
             
@@ -553,7 +564,7 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
         }
         
         // ACTION 2. Mention or address message to someone
-        let address = UITableViewRowAction(style: .Normal, title: "2") { (action:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+        let address = UITableViewRowAction(style: .Normal, title: "    ") { (action:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             
             // include username in textView
             self.commentTxt.text = "\(self.commentTxt.text + "@" + self.usernameArray[indexPath.row] + " ")"
@@ -566,7 +577,7 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
         }
         
         // ACTION 3. Complain
-        let complain = UITableViewRowAction(style: .Normal, title: "3") { (action:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+        let complain = UITableViewRowAction(style: .Normal, title: "    ") { (action:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             
             // send complain to server regarding selected comment
             let complainObj = PFObject(className: "complain")
@@ -575,10 +586,9 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
             complainObj["owner"] = cell.usernameBtn.titleLabel?.text
             complainObj.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
                 if success {
-                    
-                   self.alert("Complain has been made successfully", message: "Thank You! We will consider your complaint")
+                    self.alert("Complain has been made successfully", message: "Thank You! We will consider your complain")
                 } else {
-                 self.alert("ERROR", message: error!.localizedDescription)
+                    self.alert("ERROR", message: error!.localizedDescription)
                 }
             })
             
@@ -587,9 +597,9 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
         }
         
         // buttons background
-        delete.backgroundColor = UIColor.redColor()
-        address.backgroundColor = UIColor.grayColor()
-        complain.backgroundColor = UIColor.grayColor()
+        delete.backgroundColor = UIColor(patternImage: UIImage(named: "delete.png")!)
+        address.backgroundColor = UIColor(patternImage: UIImage(named: "address.png")!)
+        complain.backgroundColor = UIColor(patternImage: UIImage(named: "complain.png")!)
         
         // comment beloogs to user
         if cell.usernameBtn.titleLabel?.text == PFUser.currentUser()?.username {
@@ -607,30 +617,7 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
         }
         
     }
-
     
-    //clicked username button
-    @IBAction func usernameBtn_click(sender: AnyObject) {
-        
-        // call index of current button
-        let i = sender.layer.valueForKey("index") as! NSIndexPath
-        
-        // call cell to call further cell data
-        let cell = tableView.cellForRowAtIndexPath(i) as! commentCell
-        
-        // if user tapped on his username go home, else go guest
-        if cell.usernameBtn.titleLabel?.text == PFUser.currentUser()?.username {
-            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
-            self.navigationController?.pushViewController(home, animated: true)
-        } else {
-            guestname.append(cell.usernameBtn.titleLabel!.text!)
-            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
-            self.navigationController?.pushViewController(guest, animated: true)
-        }
-
-        
-        
-    }
     
     // alert action
     func alert (title: String, message : String) {
@@ -641,21 +628,21 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
     }
     
     
-    
-        // go back
-        func back(sender : UIBarButtonItem) {
-            
-            // push back
-            self.navigationController?.popViewControllerAnimated(true)
-            
-            // clean comment uui from last holding infromation
-            if !commentuuid.isEmpty {
-                commentuuid.removeLast()
-            }
-            
-            // clean comment owner from last holding infromation
-            if !commentowner.isEmpty {
-                commentowner.removeLast()
-            }
+    // go back
+    func back(sender : UIBarButtonItem) {
+        
+        // push back
+        self.navigationController?.popViewControllerAnimated(true)
+        
+        // clean comment uui from last holding infromation
+        if !commentuuid.isEmpty {
+            commentuuid.removeLast()
         }
+        
+        // clean comment owner from last holding infromation
+        if !commentowner.isEmpty {
+            commentowner.removeLast()
+        }
+    }
+    
 }
