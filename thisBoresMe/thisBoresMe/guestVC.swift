@@ -34,7 +34,7 @@ class guestVC: UICollectionViewController {
         self.collectionView?.backgroundColor = UIColor.whiteColor()
         
         // top title
-        self.navigationItem.title = guestname.last
+        self.navigationItem.title = guestname.last?.uppercaseString
         
         // new back button
         self.navigationItem.hidesBackButton = true
@@ -198,7 +198,12 @@ class guestVC: UICollectionViewController {
             if error == nil {
                 
                 if objects!.isEmpty {
-                    print("wrong user")
+                    let alert = UIAlertController(title: "\(guestname.last!.uppercaseString)", message: "user does not exist", preferredStyle: UIAlertControllerStyle.Alert)
+                    let ok = UIAlertAction(title: "ok", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) in
+                        self.navigationController?.popViewControllerAnimated(true)
+                    })
+                    alert.addAction(ok)
+                    self.presentViewController(alert, animated: true, completion: nil)
                 }
                 
                 // find related to user

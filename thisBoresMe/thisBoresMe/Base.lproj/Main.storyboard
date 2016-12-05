@@ -115,6 +115,7 @@
                                     <color key="backgroundColor" red="0.025861378210000001" green="0.025861378210000001" blue="0.025861378210000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <state key="normal" title="edit profile">
                                         <color key="titleColor" red="0.73197720239999997" green="0.77920674769999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
                                         <segue destination="XDN-Bz-24w" kind="modal" id="4L5-MN-jTG"/>
@@ -316,6 +317,9 @@
                                             <rect key="frame" x="280" y="354" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="more.png"/>
+                                            <connections>
+                                                <action selector="moreBtn_click:" destination="NfJ-C4-DYE" eventType="touchUpInside" id="phc-Gv-IR7"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="M1c-Uk-4sG">
                                             <rect key="frame" x="64" y="354" width="22" height="30"/>

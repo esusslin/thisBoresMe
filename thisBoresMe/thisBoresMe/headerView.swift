@@ -42,6 +42,7 @@ class headerView: UICollectionReusableView {
         followingTitle.center = CGPointMake(following.center.x, following.center.y + 20)
         
         button.frame = CGRectMake(postsTitle.frame.origin.x, postsTitle.center.y + 20, width - postsTitle.frame.origin.x - 10, 30)
+        button.layer.cornerRadius = button.frame.size.width / 50
         
         name.frame = CGRectMake(avatarImage.frame.origin.x, avatarImage.frame.origin.y + avatarImage.frame.size.height, width - 30, 30)
         

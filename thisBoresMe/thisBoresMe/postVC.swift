@@ -175,7 +175,7 @@ class postVC: UITableViewController {
         
         cell.usernameBtn.layer.setValue(indexPath, forKey: "index")
         cell.commentBtn.layer.setValue(indexPath, forKey: "index")
-        
+        cell.moreBtn.layer.setValue(indexPath, forKey: "index")
         
         // @mention is tapped
         cell.titleLbl.userHandleLinkTapHandler = { label, handle, rang in
@@ -248,6 +248,131 @@ class postVC: UITableViewController {
         self.navigationController?.pushViewController(comment, animated: true)
     }
     
+    @IBAction func moreBtn_click(sender: AnyObject) {
+        
+        // call index of button
+        let i = sender.layer.valueForKey("index") as! NSIndexPath
+        
+        // call cell to call further cell date
+        let cell = tableView.cellForRowAtIndexPath(i) as! postCell
+        
+        
+        // DELET ACTION
+        let delete = UIAlertAction(title: "Delete", style: .Default) { (UIAlertAction) -> Void in
+            
+            // STEP 1. Delete row from tableView
+            self.usernameArray.removeAtIndex(i.row)
+            self.avaArray.removeAtIndex(i.row)
+            self.dateArray.removeAtIndex(i.row)
+            self.picArray.removeAtIndex(i.row)
+            self.titleArray.removeAtIndex(i.row)
+            self.uuidArray.removeAtIndex(i.row)
+            
+            // STEP 2. Delete post from server
+            let postQuery = PFQuery(className: "posts")
+            postQuery.whereKey("uuid", equalTo: cell.uuidLbl.text!)
+            postQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+                if error == nil {
+                    for object in objects! {
+                        object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+                            if success {
+                                
+                                // send notification to rootViewController to update shown posts
+                                NSNotificationCenter.defaultCenter().postNotificationName("uploaded", object: nil)
+                                
+                                // push back
+                                self.navigationController?.popViewControllerAnimated(true)
+                            } else {
+                                print(error!.localizedDescription)
+                            }
+                        })
+                    }
+                } else {
+                    print(error?.localizedDescription)
+                }
+            })
+            
+            // STEP 2. Delete likes of post from server
+            let likeQuery = PFQuery(className: "likes")
+            likeQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
+            likeQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+                if error == nil {
+                    for object in objects! {
+                        object.deleteEventually()
+                    }
+                }
+            })
+            
+            // STEP 3. Delete comments of post from server
+            let commentQuery = PFQuery(className: "comments")
+            commentQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
+            commentQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+                if error == nil {
+                    for object in objects! {
+                        object.deleteEventually()
+                    }
+                }
+            })
+            
+            // STEP 4. Delete hashtags of post from server
+            let hashtagQuery = PFQuery(className: "hashtags")
+            hashtagQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
+            hashtagQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+                if error == nil {
+                    for object in objects! {
+                        object.deleteEventually()
+                    }
+                }
+            })
+        }
+        
+        
+        // COMPLAIN ACTION
+        let complain = UIAlertAction(title: "Complain", style: .Default) { (UIAlertAction) -> Void in
+            
+            // send complain to server
+            let complainObj = PFObject(className: "complain")
+            complainObj["by"] = PFUser.currentUser()?.username
+            complainObj["to"] = cell.uuidLbl.text
+            complainObj["owner"] = cell.usernameBtn.titleLabel?.text
+            complainObj.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+                if success {
+                   self.alert("Complain has been made successfully", message: "Thank You! We will consider your complain")
+                } else {
+                   self.alert("ERROR", message: error!.localizedDescription)
+                }
+            })
+        }
+        
+        // CANCEL ACTION
+        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        
+        
+        // create menu controller
+        let menu = UIAlertController(title: "Menu", message: nil, preferredStyle: .ActionSheet)
+        
+        
+        // if post belongs to user, he can delete post, else he can't
+        if cell.usernameBtn.titleLabel?.text == PFUser.currentUser()?.username {
+            menu.addAction(delete)
+            menu.addAction(cancel)
+        } else {
+            menu.addAction(complain)
+            menu.addAction(cancel)
+        }
+        
+        // show menu
+        self.presentViewController(menu, animated: true, completion: nil)
+        
+    }
+    
+    // alert action
+    func alert (title: String, message : String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        let ok = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+        alert.addAction(ok)
+        presentViewController(alert, animated: true, completion: nil)
+    }
     
     // go back function
     func back(sender: UIBarButtonItem) {
