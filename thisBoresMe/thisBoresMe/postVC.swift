@@ -146,6 +146,8 @@ class postVC: UITableViewController {
         
         if difference.weekOfMonth > 0 {
             cell.dateLbl.text = "\(difference.weekOfMonth)w."
+            
+            
         }
         
         //color like button accordingly
@@ -173,6 +175,32 @@ class postVC: UITableViewController {
         
         cell.usernameBtn.layer.setValue(indexPath, forKey: "index")
         cell.commentBtn.layer.setValue(indexPath, forKey: "index")
+        
+        
+        // @mention is tapped
+        cell.titleLbl.userHandleLinkTapHandler = { label, handle, rang in
+            var mention = handle
+            mention = String(mention.characters.dropFirst())
+            
+            // if tapped on @currentUser go home, else go guest
+            if mention.lowercaseString == PFUser.currentUser()?.username {
+                let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
+                self.navigationController?.pushViewController(home, animated: true)
+            } else {
+                guestname.append(mention.lowercaseString)
+                let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+                self.navigationController?.pushViewController(guest, animated: true)
+            }
+        }
+        
+        // #hashtag is tapped
+        cell.titleLbl.hashtagLinkTapHandler = { label, handle, range in
+            var mention = handle
+            mention = String(mention.characters.dropFirst())
+            hashtag.append(mention.lowercaseString)
+            let hashvc = self.storyboard?.instantiateViewControllerWithIdentifier("hashtagsVC") as! hashtagsVC
+            self.navigationController?.pushViewController(hashvc, animated: true)
+        }
         
         return cell
     }

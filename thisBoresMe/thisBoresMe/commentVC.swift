@@ -466,6 +466,15 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
             }
         }
         
+        // #hashtag is tapped
+        cell.commentLbl.hashtagLinkTapHandler = { label, handle, range in
+            var mention = handle
+            mention = String(mention.characters.dropFirst())
+            hashtag.append(mention.lowercaseString)
+            let hashvc = self.storyboard?.instantiateViewControllerWithIdentifier("hashtagsVC") as! hashtagsVC
+            self.navigationController?.pushViewController(hashvc, animated: true)
+        }
+        
         
         cell.usernameBtn.layer.setValue(indexPath, forKey: "index")
         

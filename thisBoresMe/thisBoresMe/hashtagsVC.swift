@@ -9,6 +9,8 @@
 import UIKit
 import Parse
 
+var hashtag = [String]()
+
 class hashtagsVC: UICollectionViewController {
 
 }
