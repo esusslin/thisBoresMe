@@ -37,8 +37,9 @@ class guestVC: UICollectionViewController {
         self.navigationItem.title = guestname.last?.uppercaseString
         
         // new back button
+        // new back button
         self.navigationItem.hidesBackButton = true
-        let backBtn = UIBarButtonItem(title: "back", style: UIBarButtonItemStyle.Plain, target: self, action: "back:")
+        let backBtn = UIBarButtonItem(image: UIImage(named: "back.png"), style: .Plain, target: self, action: #selector(hashtagsVC.back(_:)))
         self.navigationItem.leftBarButtonItem = backBtn
         
         //swipe to go back

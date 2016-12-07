@@ -18,6 +18,7 @@
 		E2007A6E1DF3CAB700A1AFC4 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2007A6D1DF3CAB700A1AFC4 /* File.swift */; };
 		E2007A721DF3EE0400A1AFC4 /* KILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2007A711DF3EE0400A1AFC4 /* KILabel.m */; };
 		E21FFA981DEA946500CAF3EC /* guestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21FFA971DEA946500CAF3EC /* guestVC.swift */; };
+		E224FEE61DF7D38300CD707A /* feedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E224FEE51DF7D38300CD707A /* feedVC.swift */; };
 		E24929E11DF4D5F3006A4137 /* hashtagsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24929E01DF4D5F3006A4137 /* hashtagsVC.swift */; };
 		E26E0B8C1DE0FD3200D2D027 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26E0B8B1DE0FD3200D2D027 /* AppDelegate.swift */; };
 		E26E0B8E1DE0FD3200D2D027 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26E0B8D1DE0FD3200D2D027 /* ViewController.swift */; };
@@ -79,6 +80,7 @@
 		E2007A701DF3EE0400A1AFC4 /* KILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KILabel.h; sourceTree = "<group>"; };
 		E2007A711DF3EE0400A1AFC4 /* KILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KILabel.m; sourceTree = "<group>"; };
 		E21FFA971DEA946500CAF3EC /* guestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = guestVC.swift; sourceTree = "<group>"; };
+		E224FEE51DF7D38300CD707A /* feedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = feedVC.swift; sourceTree = "<group>"; };
 		E24929E01DF4D5F3006A4137 /* hashtagsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = hashtagsVC.swift; sourceTree = "<group>"; };
 		E26E0B881DE0FD3200D2D027 /* thisBoresMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = thisBoresMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E26E0B8B1DE0FD3200D2D027 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -197,11 +199,12 @@
 		E26E0B8A1DE0FD3200D2D027 /* thisBoresMe */ = {
 			isa = PBXGroup;
 			children = (
+				E2007A731DF3EE1800A1AFC4 /* Frameworks */,
 				E24929E01DF4D5F3006A4137 /* hashtagsVC.swift */,
+				E224FEE51DF7D38300CD707A /* feedVC.swift */,
 				E2007A651DF1533200A1AFC4 /* commentCell.swift */,
 				E2007A6B1DF1540700A1AFC4 /* commentVC.swift */,
 				E26E0B8B1DE0FD3200D2D027 /* AppDelegate.swift */,
-				E2007A731DF3EE1800A1AFC4 /* Frameworks */,
 				E26E0B8D1DE0FD3200D2D027 /* ViewController.swift */,
 				E26E0B8F1DE0FD3200D2D027 /* Main.storyboard */,
 				E26E0B921DE0FD3200D2D027 /* Assets.xcassets */,
@@ -393,6 +396,7 @@
 				E26E0B8E1DE0FD3200D2D027 /* ViewController.swift in Sources */,
 				E26E0BDC1DE4060200D2D027 /* headerView.swift in Sources */,
 				E2007A4F1DEBE93A00A1AFC4 /* uploadVC.swift in Sources */,
+				E224FEE61DF7D38300CD707A /* feedVC.swift in Sources */,
 				E2007A601DF126CE00A1AFC4 /* navVC.swift in Sources */,
 				E26E0BD41DE12D7E00D2D027 /* signInVC.swift in Sources */,
 				E26E0BE21DE42ABF00D2D027 /* followersCell.swift in Sources */,

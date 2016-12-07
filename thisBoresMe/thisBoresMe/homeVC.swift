@@ -64,10 +64,7 @@ class homeVC: UICollectionViewController {
         collectionView?.reloadData()
     }
     
-    //reload function
-    func uploaded(notification:NSNotification) {
-        loadPosts()
-    }
+    
     
     func loadPosts() {
         let query = PFQuery(className: "posts")
