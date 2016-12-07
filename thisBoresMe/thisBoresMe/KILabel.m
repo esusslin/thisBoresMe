@@ -406,22 +406,22 @@ NSString * const KILabelLinkKey = @"link";
     // Run the expression and get matches
     NSArray *matches = [[NSArray alloc] init];
     
-    if ((matches = [regex matchesInString:text options:0 range:NSMakeRange(0, text.length)]) && (text.length > 4)) {
+    if ((matches = [regex matchesInString:text options:0 range:NSMakeRange(0, text.length)]) && (text.length > 0)) {
     
-    // Add all our ranges to the result
-    for (NSTextCheckingResult *match in matches)
-    {
-        NSRange matchRange = [match range];
-        NSString *matchString = [text substringWithRange:matchRange];
-        
-        if (![self ignoreMatch:matchString])
+        // Add all our ranges to the result
+        for (NSTextCheckingResult *match in matches)
         {
-            [rangesForUserHandles addObject:@{KILabelLinkTypeKey : @(KILinkTypeUserHandle),
-                                              KILabelRangeKey : [NSValue valueWithRange:matchRange],
-                                              KILabelLinkKey : matchString
-                                            }];
-        }
-        }
+            NSRange matchRange = [match range];
+            NSString *matchString = [text substringWithRange:matchRange];
+        
+            if (![self ignoreMatch:matchString])
+                {
+                    [rangesForUserHandles addObject:@{KILabelLinkTypeKey : @(KILinkTypeUserHandle),
+                                                      KILabelRangeKey : [NSValue valueWithRange:matchRange],
+                                                      KILabelLinkKey : matchString
+                                                      }];
+                }
+            }
     }
     
     return rangesForUserHandles;
