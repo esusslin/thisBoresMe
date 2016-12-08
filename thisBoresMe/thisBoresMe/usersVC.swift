@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class usersVC: UITableViewController, UISearchBarDelegate {
+class usersVC: UITableViewController, UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     // declare search bar
     var searchBar = UISearchBar()
@@ -20,11 +20,13 @@ class usersVC: UITableViewController, UISearchBarDelegate {
     
     
     // collectionView UI
-//    var collectionView : UICollectionView!
+    var collectionView : UICollectionView!
+    
     
     // collectionView arrays to hold infromation from server
     var picArray = [PFFile]()
     var uuidArray = [String]()
+    var refresher = UIRefreshControl()
     var page : Int = 15
 
     override func viewDidLoad() {
@@ -38,11 +40,10 @@ class usersVC: UITableViewController, UISearchBarDelegate {
         let searchItem = UIBarButtonItem(customView: searchBar)
         self.navigationItem.leftBarButtonItem = searchItem
         
-        // call functions
-        loadUsers()
+
         
         // call collectionView
-//        collectionViewLaunch()
+        collectionViewLaunch()
     }
     
     // search updated
@@ -102,10 +103,8 @@ class usersVC: UITableViewController, UISearchBarDelegate {
     // tapped on the searchBar
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         
-        // hide collectionView when started search
-//        collectionView.hidden = true
+        collectionView.hidden = true
         
-        // show cancel button
         searchBar.showsCancelButton = true
     }
     
@@ -114,7 +113,7 @@ class usersVC: UITableViewController, UISearchBarDelegate {
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         
         // unhide collectionView when tapped cancel button
-//        collectionView.hidden = false
+      collectionView.hidden = false
         
         // dismiss keyboard
         searchBar.resignFirstResponder()
@@ -210,36 +209,161 @@ class usersVC: UITableViewController, UISearchBarDelegate {
     }
 
     
-//    // COLLECTION VIEW CODE
-//    func collectionViewLaunch() {
-//        
-//        // layout of collectionView
-//        let layout : UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-//        
-//        // item size
-//        layout.itemSize = CGSizeMake(self.view.frame.size.width / 3, self.view.frame.size.width / 3)
-//        
-//        // direction of scrolling
-//        layout.scrollDirection = UICollectionViewScrollDirection.Vertical
-//        
-//        // define frame of collectionView
-//        let frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.tabBarController!.tabBar.frame.size.height - self.navigationController!.navigationBar.frame.size.height - 20)
-//        
-//        // declare collectionView
-//        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
-//        collectionView.delegate = self
-//        collectionView.dataSource = self
-//        collectionView.alwaysBounceVertical = true
-//        collectionView.backgroundColor = .whiteColor()
-//        self.view.addSubview(collectionView)
-//        
-//        // define cell for collectionView
-//        collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-//        
-//        // call function to load posts
-//        loadPosts()
-//    }
+    // COLLECTION VIEW CODE
+    func collectionViewLaunch() {
+        
+        // layout of collectionView
+        let layout : UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        
+        // item size
+        layout.itemSize = CGSizeMake(self.view.frame.size.width / 3, self.view.frame.size.width / 3)
+        
+        // direction of scrolling
+        layout.scrollDirection = UICollectionViewScrollDirection.Vertical
+        
+        // define frame of collectionView
+        let frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.tabBarController!.tabBar.frame.size.height - self.navigationController!.navigationBar.frame.size.height - 20)
+        
+        // declare collectionView
+        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.alwaysBounceVertical = true
+        collectionView.backgroundColor = .whiteColor()
+        self.view.addSubview(collectionView)
+        
+        // define cell for collectionView
+        collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        
+        // implement pull to refresh function
+        
+        refresher.addTarget(self, action: "loadPosts", forControlEvents: UIControlEvents.ValueChanged)
+        collectionView.addSubview(refresher)
+        
+        // call function to load posts
+        loadPosts()
+    }
 
+
+    // cell line spasing
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0
+    }
+    
+    // cell inter spasing
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0
+    }
+    
+    // cell numb
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return picArray.count
+    }
+    
+    // cell config
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        // define cell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath)
+        
+        // create picture imageView in cell to show loaded pictures
+        let picImg = UIImageView(frame: CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height))
+        cell.addSubview(picImg)
+        
+        // get loaded images from array
+        picArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
+            if error == nil {
+                picImg.image = UIImage(data: data!)
+            } else {
+                print(error!.localizedDescription)
+            }
+        }
+        
+        return cell
+    }
+    
+    // cell's selected
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
+        // take relevant unique id of post to load post in postVC
+        postuuid.append(uuidArray[indexPath.row])
+        
+        // present postVC programmaticaly
+        let post = self.storyboard?.instantiateViewControllerWithIdentifier("postVC") as! postVC
+        self.navigationController?.pushViewController(post, animated: true)
+    }
+    
+    // load posts
+    func loadPosts() {
+        let query = PFQuery(className: "posts")
+        query.limit = page
+        query.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error:NSError?) -> Void in
+            if error == nil {
+                
+                // clean up
+                self.picArray.removeAll(keepCapacity: false)
+                self.uuidArray.removeAll(keepCapacity: false)
+                
+                // found related objects
+                for object in objects! {
+                    self.picArray.append(object.objectForKey("pic") as! PFFile)
+                    self.uuidArray.append(object.objectForKey("uuid") as! String)
+                }
+                
+                // reload collectionView to present images
+                self.collectionView.reloadData()
+                
+            } else {
+                print(error!.localizedDescription)
+            }
+        }
+    }
+    
+    // scrolled down
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        // scroll down for paging
+        if scrollView.contentOffset.y >= scrollView.contentSize.height / 6 {
+            self.loadMore()
+        }
+    }
+    
+    // pagination
+    func loadMore() {
+        
+        // if more posts are unloaded, we wanna load them
+        if page <= picArray.count {
+            
+            // increase page size
+            page = page + 15
+            
+            // load additional posts
+            let query = PFQuery(className: "posts")
+            query.limit = page
+            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+                if error == nil {
+                    
+                    // clean up
+                    self.picArray.removeAll(keepCapacity: false)
+                    self.uuidArray.removeAll(keepCapacity: false)
+                    
+                    // find related objects
+                    for object in objects! {
+                        self.picArray.append(object.objectForKey("pic") as! PFFile)
+                        self.uuidArray.append(object.objectForKey("uuid") as! String)
+                    }
+                    
+                    // reload collectionView to present loaded images
+                    self.collectionView.reloadData()
+                    self.refresher.endRefreshing()
+                    
+                } else {
+                    print(error!.localizedDescription)
+                }
+            })
+            
+        }
+        
+    }
 
 
 
