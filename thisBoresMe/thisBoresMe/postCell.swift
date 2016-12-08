@@ -140,6 +140,19 @@ class postCell: UITableViewCell {
                     self.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
                     
                     NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+                    
+                    // send notification as like
+                    if self.usernameBtn.titleLabel?.text != PFUser.currentUser()?.username {
+                        let newsObj = PFObject(className: "news")
+                        newsObj["by"] = PFUser.currentUser()?.username
+                        newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
+                        newsObj["to"] = self.usernameBtn.titleLabel!.text
+                        newsObj["owner"] = self.usernameBtn.titleLabel!.text
+                        newsObj["uuid"] = self.uuidLbl.text
+                        newsObj["type"] = "like"
+                        newsObj["checked"] = "no"
+                        newsObj.saveEventually()
+                    }
                 }
             })
             
@@ -167,37 +180,67 @@ class postCell: UITableViewCell {
                     self.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
                     
                     NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+                    
+                    // send notification as like
+                    if self.usernameBtn.titleLabel?.text != PFUser.currentUser()?.username {
+                        let newsObj = PFObject(className: "news")
+                        newsObj["by"] = PFUser.currentUser()?.username
+                        newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
+                        newsObj["to"] = self.usernameBtn.titleLabel!.text
+                        newsObj["owner"] = self.usernameBtn.titleLabel!.text
+                        newsObj["uuid"] = self.uuidLbl.text
+                        newsObj["type"] = "like"
+                        newsObj["checked"] = "no"
+                        newsObj.saveEventually()
+                    }
                 }
             })
         
-        // to dislike
+            // to dislike
         } else {
             
+            // request existing likes of current user to show post
             let query = PFQuery(className: "likes")
             query.whereKey("by", equalTo: PFUser.currentUser()!.username!)
             query.whereKey("to", equalTo: uuidLbl.text!)
-            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) in
+            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
                 
-                // found objects - likes
+                // find objects - likes
                 for object in objects! {
                     
-                    object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) in
+                    // delete found like(s)
+                    object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
                         if success {
                             print("disliked")
                             self.likeBtn.setTitle("unlike", forState: .Normal)
                             self.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
                             
-                            //send notification if we liked to refresh TableView
+                            // send notification if we liked to refresh TableView
                             NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+                            
+                            
+                            // delete like notification
+                            let newsQuery = PFQuery(className: "news")
+                            newsQuery.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+                            newsQuery.whereKey("to", equalTo: self.usernameBtn.titleLabel!.text!)
+                            newsQuery.whereKey("uuid", equalTo: self.uuidLbl.text!)
+                            newsQuery.whereKey("type", equalTo: "like")
+                            newsQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+                                if error == nil {
+                                    for object in objects! {
+                                        object.deleteEventually()
+                                    }
+                                }
+                            })
+                            
                             
                         }
                     })
                 }
-                
             })
+            
         }
         
     }
-    
 
 }

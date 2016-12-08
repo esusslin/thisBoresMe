@@ -48,6 +48,8 @@
 		E26E0BDE1DE4074900D2D027 /* pictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26E0BDD1DE4074900D2D027 /* pictureCell.swift */; };
 		E26E0BE01DE42AA900D2D027 /* followersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26E0BDF1DE42AA900D2D027 /* followersVC.swift */; };
 		E26E0BE21DE42ABF00D2D027 /* followersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26E0BE11DE42ABF00D2D027 /* followersCell.swift */; };
+		E27874FC1DF9293A00B44082 /* newsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27874FB1DF9293A00B44082 /* newsVC.swift */; };
+		E27874FE1DF9295400B44082 /* newsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27874FD1DF9295400B44082 /* newsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +119,8 @@
 		E26E0BDD1DE4074900D2D027 /* pictureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pictureCell.swift; sourceTree = "<group>"; };
 		E26E0BDF1DE42AA900D2D027 /* followersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = followersVC.swift; sourceTree = "<group>"; };
 		E26E0BE11DE42ABF00D2D027 /* followersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = followersCell.swift; sourceTree = "<group>"; };
+		E27874FB1DF9293A00B44082 /* newsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = newsVC.swift; sourceTree = "<group>"; };
+		E27874FD1DF9295400B44082 /* newsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = newsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +207,8 @@
 			children = (
 				E2007A731DF3EE1800A1AFC4 /* Frameworks */,
 				E24929E01DF4D5F3006A4137 /* hashtagsVC.swift */,
+				E27874FB1DF9293A00B44082 /* newsVC.swift */,
+				E27874FD1DF9295400B44082 /* newsCell.swift */,
 				E224FEE71DF7EC7400CD707A /* usersVC.swift */,
 				E224FEE51DF7D38300CD707A /* feedVC.swift */,
 				E2007A651DF1533200A1AFC4 /* commentCell.swift */,
@@ -397,6 +403,7 @@
 				E26E0BDA1DE405E700D2D027 /* homeVC.swift in Sources */,
 				E2007A721DF3EE0400A1AFC4 /* KILabel.m in Sources */,
 				E26E0BE01DE42AA900D2D027 /* followersVC.swift in Sources */,
+				E27874FE1DF9295400B44082 /* newsCell.swift in Sources */,
 				E26E0B8E1DE0FD3200D2D027 /* ViewController.swift in Sources */,
 				E26E0BDC1DE4060200D2D027 /* headerView.swift in Sources */,
 				E2007A4F1DEBE93A00A1AFC4 /* uploadVC.swift in Sources */,
@@ -405,6 +412,7 @@
 				E26E0BD41DE12D7E00D2D027 /* signInVC.swift in Sources */,
 				E26E0BE21DE42ABF00D2D027 /* followersCell.swift in Sources */,
 				E26E0B8C1DE0FD3200D2D027 /* AppDelegate.swift in Sources */,
+				E27874FC1DF9293A00B44082 /* newsVC.swift in Sources */,
 				E2007A511DEC088900A1AFC4 /* postVC.swift in Sources */,
 				E24929E11DF4D5F3006A4137 /* hashtagsVC.swift in Sources */,
 				E2007A5E1DF126AD00A1AFC4 /* tabbarVC.swift in Sources */,

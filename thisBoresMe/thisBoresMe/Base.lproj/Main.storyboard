@@ -650,7 +650,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="M5q-3u-SqC" id="VCc-Tm-HIV">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_placeholder" id="gyy-JE-vZf">
@@ -707,8 +707,9 @@
                     <connections>
                         <segue destination="hbN-PI-3xH" kind="relationship" relationship="viewControllers" id="bda-gi-Rzl"/>
                         <segue destination="iNQ-2O-Y0D" kind="relationship" relationship="viewControllers" id="8lO-S0-1Ax"/>
-                        <segue destination="XLg-Va-iMF" kind="relationship" relationship="viewControllers" id="Wxa-HE-G5D"/>
                         <segue destination="3QT-dQ-a7k" kind="relationship" relationship="viewControllers" id="aMi-8U-caA"/>
+                        <segue destination="2kE-8v-ESU" kind="relationship" relationship="viewControllers" id="pyF-qd-1yj"/>
+                        <segue destination="XLg-Va-iMF" kind="relationship" relationship="viewControllers" id="Wxa-HE-G5D"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NvC-Gd-RGz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -975,7 +976,7 @@
                                 <rect key="frame" x="0.0" y="92" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SHy-gg-Thv" id="9dQ-ek-A24">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_placeholder" id="xZU-b1-Cay">
@@ -1251,6 +1252,70 @@
             </objects>
             <point key="canvasLocation" x="1451" y="947"/>
         </scene>
+        <!--NewsVC-->
+        <scene sceneID="wqT-a0-jvJ">
+            <objects>
+                <tableViewController storyboardIdentifier="newsVC" id="ShT-wr-W4K" customClass="newsVC" customModule="thisBoresMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Pof-qi-8MB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" id="J8b-Nz-T3K" customClass="newsCell" customModule="thisBoresMe" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J8b-Nz-T3K" id="cfj-Iw-esp">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_placeholder" id="O2b-xz-3lp">
+                                            <rect key="frame" x="8" y="7" width="30" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pHr-SM-uN3">
+                                            <rect key="frame" x="50" y="5" width="88" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <state key="normal" title="usernameBtn"/>
+                                            <connections>
+                                                <action selector="usernameBtn_click:" destination="ShT-wr-W4K" eventType="touchUpInside" id="10g-f2-qWr"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="infoLbl" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wXb-cX-ASe">
+                                            <rect key="frame" x="146" y="5" width="124" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="365w" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YEN-KQ-Lap">
+                                            <rect key="frame" x="270" y="5" width="42" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="avatarImage" destination="O2b-xz-3lp" id="Hp3-FI-tf5"/>
+                                    <outlet property="dateLbl" destination="YEN-KQ-Lap" id="7su-oz-cKW"/>
+                                    <outlet property="infoLbl" destination="wXb-cX-ASe" id="99r-wo-1mh"/>
+                                    <outlet property="usernameBtn" destination="pHr-SM-uN3" id="657-iL-03Z"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ShT-wr-W4K" id="N6G-Sf-TlA"/>
+                            <outlet property="delegate" destination="ShT-wr-W4K" id="fDU-Ay-eCk"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="GsI-ZU-cY3"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gta-T5-K8N" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1983" y="2317"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="1Dh-xV-gWH">
             <objects>
@@ -1270,6 +1335,25 @@
             </objects>
             <point key="canvasLocation" x="1445" y="1651"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="fOr-vE-mJ4">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2kE-8v-ESU" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="news" id="Pyd-T4-P60"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="M1L-0i-f7W">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ShT-wr-W4K" kind="relationship" relationship="rootViewController" id="RmL-hb-Gbp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0SY-ug-FIM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1445" y="2317"/>
+        </scene>
     </scenes>
     <resources>
         <image name="avatar_placeholder" width="240" height="240"/>
@@ -1277,6 +1361,7 @@
         <image name="grey" width="200" height="200"/>
         <image name="home" width="24" height="24"/>
         <image name="more.png" width="795" height="765"/>
+        <image name="news" width="25" height="25"/>
         <image name="photo-camera" width="16" height="16"/>
         <image name="search" width="24" height="24"/>
         <image name="social" width="16" height="16"/>
