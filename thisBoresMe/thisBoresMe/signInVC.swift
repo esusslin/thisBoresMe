@@ -34,6 +34,8 @@ class signInVC: UIViewController {
         forgotpassBtn.frame = CGRectMake(10, passwordTxt.frame.origin.y + 30, self.view.frame.size.width - 20, 30)
         singInBtn.frame = CGRectMake(20, forgotpassBtn.frame.origin.y + 40, self.view.frame.size.width / 4, 30)
         signUpBtn.frame = CGRectMake(self.view.frame.size.width - self.view.frame.size.width / 4 - 20, singInBtn.frame.origin.y, self.view.frame.size.width / 4, 30)
+        signUpBtn.layer.cornerRadius = signUpBtn.frame.size.width / 20
+        singInBtn.layer.cornerRadius = signUpBtn.frame.size.width / 20
         
         //tape to hide keyboard
         let hideTap = UITapGestureRecognizer(target: self, action: "hideKeyboard:")

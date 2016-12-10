@@ -31,6 +31,7 @@ class followersCell: UITableViewCell {
         avaImg.frame = CGRectMake(10, 10, width / 5.3, width / 5.3)
         usernameLbl.frame = CGRectMake(avaImg.frame.size.width + 20, width / 11.428, width / 3.2, 30)
         followBtn.frame = CGRectMake(width - width / 3.5 - 10, 30, width / 3.5, 30)
+        followBtn.layer.cornerRadius = followBtn.frame.size.width / 20
 
         avaImg.layer.cornerRadius = avaImg.frame.size.width / 2
         avaImg.clipsToBounds = true
