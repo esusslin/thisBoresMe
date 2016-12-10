@@ -53,12 +53,6 @@ class newsVC: UITableViewController {
                     self.uuidArray.append(object.objectForKey("uuid") as! String)
                     self.ownerArray.append(object.objectForKey("owner") as! String)
                     
-                    //hide iconsView with animation
-                    UIView.animateWithDuration(1, animations: { 
-                        icons.alpha = 0
-                        corner.alpha = 0
-                        dot.alpha = 0
-                    })
                     
                     // save notifications as checked
                     object["checked"] = "yes"

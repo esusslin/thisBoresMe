@@ -85,7 +85,7 @@ class tabbarVC: UITabBarController {
         
         let query = PFQuery(className: "news")
         query.whereKey("to", equalTo: PFUser.currentUser()!.username!)
-        //query.whereKey("checked", equalTo: "no")
+        query.whereKey("checked", equalTo: "no")
         query.whereKey("type", containedIn: type)
         query.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) -> Void in
             if error == nil {
